@@ -1,0 +1,18 @@
+\begin{figure}
+\scriptsize
+\begin{minipage}{1.0\textwidth}
+
+\begin{gather*}\label{eA1}
+ \bold{A-Prop} \frac{ S \models  \textnormal{len} \ x \approx \textnormal{len} \ y}{ \textnormal{A} := \textnormal{A}, \textnormal{len} \ x \approx \textnormal{len} \ y}\\
+  \bold{S-Prop} \frac{ A \models_{LIA}  \textnormal{len} \ x \approx \textnormal{len} \ y}{ \textnormal{S} := \textnormal{S}, \textnormal{len} \ x \approx \textnormal{len} \ y}\\
+ \bold{Len} \frac{ x \approx t \in \mathcal{C}(S) \ x \in \mathcal{V}(S)}{ \textnormal{A} := \textnormal{A}, \textnormal{len} \ x \approx (\textnormal{len} \ t) \downarrow}\\
+ \bold{Len-Split} \frac{ x \in \mathcal{V}(S \cup A) \ x: Str}{ \textnormal{S} := \textnormal{S}, x \approx \epsilon \parallel  \textnormal{A}:= \textnormal{A}, \textnormal{len} \ x > 0}\\
+ \bold{A-Conflict} \frac{ A \models_{LIA} \perp }{ unsat}\\
+ \bold{R-Star} \frac{ s \ in \ star( set \ t) \in R \ s  \not\approx \epsilon \in \mathcal{C}(S)}{ \textnormal{S}:= \textnormal{S}, s \approx \textnormal{con}(t,z) \textnormal{R}:= \textnormal{R}, z \ in \ star \ (set \ t)}
+\end{gather*}
+\null
+\par\xdef\tpd{\the\prevdepth}
+\end{minipage}
+\caption{Rules for the combination of string, arithmetic and RL constraints. The letter $z$ denotes a fresh Skolem variable.The rules are taken from \cite{main-paper} and they are in their original form.}
+\label{rules_1}
+\end{figure}

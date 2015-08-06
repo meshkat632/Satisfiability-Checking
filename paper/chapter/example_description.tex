@@ -1,0 +1,22 @@
+\section{Example}
+In this section, we will use the example formula \ref{mainConstraint} to explain how the decision procedure works. Consider the five constraints $s_1,s_2, s_3,s_4,s_5$ on the left side of Figure \ref{smt_example_1_2}. Since the SAT core cannot interpret the constraints, it treats them as five independent boolean variables and tries to assign values to them. The core starts by setting $s_1, s_4$ and $s_5$ to \texttt{true}. Then the SAT core choose true for $s_2$ before $s_3$.  Now the selected constraints $\{ s_1,s_2, s_4,s_5\}$  are forwarded to the theory solver. This is shown as the left branch of the tree on the right side of Figure \ref{smt_example_1_2}. The theory solver will answer \texttt{unsat} for this set of constraints. The SAT core backtracks and tries the other option. That is the SAT core choose $s_3$ and ask theory solver to solve the new set of constraints  $\{ s_1,s_3, s_4,s_5\}$. This is shown as the right branch of the tree on the right of Figure \ref{smt_example_1_2}. The theory solver eventually finds a satisfying solution in this branch. 
+
+\begin{description}
+	\item[Left derivation tree:] The input constraints are: $A = \{ \texttt{len}\ x > 6\}$ and $S= \{ x = \texttt{con}('ab', z), y = \texttt{con}('de', z), x = y\}$.
+		
+	The procedure starts with by applying \texttt{Reset}. Then it tries to find conflict by applying \texttt{S-Conflict} and \texttt{A-Conflict} and fails to find any contradiction in the current constraints. 
+	
+	The procedure tries to apply \texttt{A-Prop} and \texttt{S-Prop}. The constraints in different theories fail to induce new constraint for other. 
+	
+	Now the procedure keeps trying to apply rules \texttt{Len} and \texttt{Len-Split}. The application of these split rule causes the tree to branch into new configurations. However, all the branches are closed with respect to the rule \texttt{S-Conflict}. This is shown in the left branches in Figure \ref{leftDerivationTree}.
+	
+	Now for the non closing configuration, the procedure goes on to compute the normal forms. $x = y$ causes  $\texttt{con} ('ab', z) ,\texttt{con} ('de', z)$ to be classified as equivalent term. Further application of rule  \texttt{F-Unify} causes to introduce $'ab' = 'de'$ into $S$ and eventually this branch get closed by \texttt{S-Conflict}. Thus the procedure decides that, the given set of constraints are unsatisfiable.
+	
+	
+	\item[Right derivation tree:] The input constraints are: $A = \{ \texttt{len}\ x > 6\}$ and $S= \{ x = \texttt{con}('ab', z), y = \texttt{con}('abc', l), x = y\}$. The derivation tree is shown in Figure \ref{rightDerivationTree}.
+		
+	Similar to the left derivation tree, the procedure reaches a configuration, where the string equivalence classes are like  $\{ x,y, \texttt{con}('ab', z), \texttt{con}('abc', l)\}, \{ z\}, \{ l\}$. Application of the rule \texttt{F-Unify} causes the introduction of new constraints $ z = \texttt{con}('c', l)$. The procedure restarts with new equivalence classes  $\{ x,y, \texttt{con}('ab', z), \texttt{con}('abc', l)\}, \{ z,  \texttt{con}('c', l)\}, \{ l\}$ with the application of \texttt{Reset}. The new constraint in $S$ induces new constraints in $A$. That application of \texttt{Len} causes $A: =A , \texttt{len} \ z = 1 + \texttt{len} \ l$. At this point the procedure starts to compute the normal forms by applying different rules. Eventually the constraint $\texttt{len}\ l > 3$ is computed and a saturated configuration is reached. As no more rule application is not possible at this configuration. Thus the procedure concludes that the problem is satisfiable. 
+	
+	Finally, for each buckets an arithmetic constraint on the minimum length is added. For example, $\texttt{len}\ l > 3$ causes the length of the bucket which contain $l$ to be 4. Now it is trivial to find a satisfying assignment. that if $ l = 'AAAA'$ then $ z = 'cAAAA'$ and $x, y = 'abcAAAA'$.
+	
+\end{description}

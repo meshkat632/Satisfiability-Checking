@@ -1,0 +1,48 @@
+\section{Formal Preliminaries}
+\label{sec:preliminaries}
+And then we will describe briefly few basic constructs, which will be used in following sections.
+\subsection{Background}
+\label{sec:background}
+In this section, we introduce several formal concepts and some general notation for later sections. We use \(\mathbb B, \mathbb N, \mathbb Z, \mathbb S\) to represent \(Boolean values, Natural Numbers, Integers\)  and  \(Strings\), respectively. A \(language\) is a set of strings that can be constructed from a set of symbols by a grammar.
+
+\begin{description}
+	\item[Strings] 
+	An alphabet \(\mathcal A\) is any non-empty finite set of \(character\). A string of length one is referred as a character. We use  \(\mathbb S\)  to denote the  set of all strings with respect to the alphabet \(\mathcal A\). A \(string s\) over \(\mathcal A\) is a finite sequence of characters over \(\mathcal A\), i.e., 
+	\[s = c_0 c_1 \dotsb c_{n-1}. \]
+	Empty string is denoted by  \(\epsilon\) and the character at the position \(i\) is by \(s[i]\). 
+	The operation \(concatenation, \cdot : \mathbb S \times \mathbb S \to \mathbb S\), takes two strings \(s, t\), and returns a new string which starts with the sequence of characters in \(s\), followed by the sequence of characters in \(t\). The  operation \(concatenation\) satisfies the following three properties:
+	\begin{itemize}
+		\item \(Closure:\) \( \forall s,t  \in \mathbb S. \ s\cdot t \in  \mathbb S\),
+		\item \(Associativity:\) \( \forall s,t,r  \in \mathbb S. \ (s\cdot t)\cdot r = s\cdot (t\cdot r)\),   and
+		\item \(Identity:\) \( \forall s  \in \mathbb S. \ \epsilon \cdot s = s \cdot \epsilon = s \).
+	\end{itemize}
+	Associativity allows us to write \(s_1 \cdot s_2 \cdot s_3 \) for either \((s_1 \cdot s_2) \cdot s_3 \) or \(s_1 \cdot (s_2 \cdot s_3) \). A string s is always associated with a natural number, the \(length\), which indicates the number of characters in \(s\), i.e., \( |s| = n \) iff \(s = c_0c_1 \cdots c_{ n-1}\). The length function has the following two properties: 
+	\begin{itemize}
+	    \item \( |\epsilon|  = 0\), and
+	    \item \(  |s \cdot t| =  |s| + |t|  \),for any strings \(s\) and \(t\) ,
+	\end{itemize} 
+	where + is the standard addition operation over the natural numbers.
+	
+	
+	Two strings are \(identical\), iff they have the same length and all characters (at
+same positions) are identical, i.e., \\
+           \(s = t \) iff  \(|s| = |t| \) and \( \forall 0 \le i < |s| \cdot s[i] = t[i]\).
+           	
+           	
+           	\begin{description}
+           		\item[Levi’s Lemma: ] Given four strings \(u, s, v, t\) if  \(u \cdot s = v \cdot t \), then there exists another string \(k\), such that either \( u = v \cdot k\) or \(v = u \cdot k\).
+           	\end{description}
+           	This lemma is also called the \(equidivisibility\) theorem. It provides a basis for some rules of calculus in later sections while we are solving word equations.
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+	Unless explicitly stated, we do not distinguish a character from a string.
+	
+	In this section, we introduce several formal concepts and some general notation for later sections. We use \(\mathbb B, \mathbb N, \mathbb Z, \mathbb S\) to represent \(Boolean values, Natural Numbers, Integers\)  and  \(Strings\), respectively. A \(language\) is a set of strings that can be constructed from a set of symbols by a grammar.
+	
+	\item[Languages: ] yet to complete.
+\end{description}

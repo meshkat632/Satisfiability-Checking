@@ -1,0 +1,15 @@
+digraph G {
+rankdir=TB;
+node [shape=box];
+root [texlbl="$initial \mathcal{K}$"];
+a [texlbl="$S:=S, x \approx \epsilon$"];
+b [texlbl="$A:=A, \texttt{len} \ x >0$"];
+
+root:left -> a [texlbl="$Len-Split$",style=bold,label="100 times"];
+root:right -> b [texlbl="$Len-Split$",style=bold,label="100 times"];
+
+
+label="Graph label $\approx$";
+lblstyle="draw,fill=red!20";
+
+};

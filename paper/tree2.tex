@@ -1,0 +1,44 @@
+% Author: Till Tantau
+% Source: The PGF/TikZ manual
+
+\documentclass{article}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage[latin1]{inputenc}
+\usepackage{verbatim}
+
+\begin{document}
+	
+	\begin{comment}
+	:Title: State machine
+	:Tags: Manual, Automata, Graphs
+	
+	Another examle from the manual.
+	
+	| Author: Till Tantau
+	| Source: The PGF/TikZ manual
+	
+	\end{comment}
+	
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.5cm,semithick]
+	\tikzstyle{every state}=[shape= rectangle,fill=lightgray,draw=none,text=black]
+	
+	\node[state]         (A)                                      {$initial\ \mathcal{K}$};
+	\node[state]         (B) [below left of=A]            {$\texttt{S:= S},x\approx\epsilon$};
+	\node[state]         (B_unsat) [below left of=B]  {$\texttt{unsat}$};
+	\node[state]         (C) [below right of=A]         {$\texttt{A:= A},\texttt{len} \ x > 0$};
+	\node[state]         (C_unsat) [below left of=C]  {$\texttt{unsat}$};
+	\node[state]         (D) [below right of=C]    {$D$};	
+	
+	\path (A) edge              node {$\texttt{Len-Split}$} (B)
+	              edge              node {$\texttt{S-Conflict}$} (C)
+	         
+	        (C) edge              node {$\texttt{S-Conflict}$} (C_unsat)
+	             edge              node {$\texttt{Len-Split}$} (E)
+			(B) edge              node {$\texttt{S-Conflict}$} (B_unsat)
+	;
+	\end{tikzpicture}
+	
+\end{document}

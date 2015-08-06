@@ -1,0 +1,8 @@
+\section{Introduction}
+\label{sec:introduction}
+Stability and reliability of software systems has been a key issues in the protection of privacy and security. As we want more and more new features and functionalists into such systems, the complexity of the system is exploding. With the rise of web-based applications and online services, the amount of information sharing via networking has increased rapidly. As a result, the security of web applications is getting more and more attention. As the complexity of such systems is growing, manual analysis is getting harder and sometime impossible.  In the last few years, a number of techniques which were originally developed for automatic verification purposes have been adopted for the software security analysis. 
+
+The ability to reason about string values is a major task in the field of security analysis. Especially in web-based applications, where the program inputs are often provided as strings. These strings are usually get processed through operations such as matching against regular expressions, concatenation, and substring extraction or replacement. We need to be able to formally reason about strings as well as other data types.  
+
+
+In this paper, we will see how the automatic reasoning engines such as Satisfiability Module Theories (SMT) solvers, are helping to check the satisfiability of constraints over rich set of data types including  strings. We will describe a  SMT solver for strings. The ideas are presented in paper \cite{main-paper} and a practical version of the solver is implemented into the SMT solver CVC4 \cite{cvc4_website} core.

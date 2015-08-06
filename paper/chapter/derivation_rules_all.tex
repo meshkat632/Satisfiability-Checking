@@ -1,0 +1,74 @@
+
+  \begin{gather*}\label{eA1}
+   \bold{A-Prop} \frac{ S \models  \textnormal{len} \ x \approx \textnormal{len} \ y}{ \textnormal{A} := \textnormal{A}, \textnormal{len} \ x \approx \textnormal{len} \ y}\\
+    \bold{S-Prop} \frac{ A \models_{LIA}  \textnormal{len} \ x \approx \textnormal{len} \ y}{ \textnormal{S} := \textnormal{S}, \textnormal{len} \ x \approx \textnormal{len} \ y}\\
+   \bold{Len} \frac{ x \approx t \in \mathcal{C}(S) \ x \in \mathcal{V}(S)}{ \textnormal{A} := \textnormal{A}, \textnormal{len} \ x \approx (\textnormal{len} \ t) \downarrow}\\
+   \bold{Len-Split} \frac{ x \in \mathcal{V}(S \cup A) \ x: Str}{ \textnormal{S} := \textnormal{S}, x \approx \epsilon \parallel  \textnormal{A}:= \textnormal{A}, \textnormal{len} \ x > 0}\\
+   \bold{A-Conflict} \frac{ A \models_{LIA} \perp }{ unsat}\\
+   \bold{R-Star} \frac{ s \ in \ star( set \ t) \in R \ s  \not\approx \epsilon \in \mathcal{C}(S)}{ \textnormal{S}:= \textnormal{S}, s \approx \textnormal{con}(t,z) \textnormal{R}:= \textnormal{R}, z \ in \ star \ (set \ t)}
+  \end{gather*}
+  \begin{gather*}\label{eA1}   
+   \bold{S-Cycle} \frac
+   { t = \textnormal{con}(t_1, \cdots, t_i, \cdots, t_n) \ t \in \mathcal{T}(S) \setminus C \ t_k \approx \epsilon \in \mathcal{C}(S) \ \textnormal{for all} \ k \in \{1,\cdots,n\} \setminus \{ i \} }
+   { \textnormal{S} := \textnormal{S}, t \approx t_i \ C:=C (C, t) \setminus \{t_i\}   }\\
+    \bold{Reset} \frac{ }
+    { \textnormal{F} := \phi, \textnormal{N} := \phi, \textnormal{B} := \phi}\\
+     \bold{S-Split} \frac
+     { x, y \in \mathcal{V}(S) \ \ x \approx y, x \not\approx y \in \mathcal{C}(S) }
+     { \textnormal{S} := \textnormal{S}, x \approx y \parallel S:= S, x \not\approx y}\\
+        \bold{S-Conflict} \frac
+        { x \approx t \in \mathcal{C}(S) \ \ s \not\approx t \in \mathcal{C}(S)}
+        { \textnormal{unsat}}\\
+        \bold{L-Split} \frac
+         { x, y \in \mathcal{V}(S) \ \ x,y: \textnormal{Str}  \ \  S \not\models \textnormal{len} \ x \not\approx \textnormal{len} \ y}
+         { \textnormal{S}:= \textnormal{S}, \textnormal{len} \ x \approx \textnormal{len} \ y \parallel \textnormal{S}:=\textnormal{S}, \textnormal{len} \ x \not\approx \textnormal{len} \ y}
+  \end{gather*}
+  \begin{gather*}\label{eA1}
+   \bold{F-Form1} \frac
+   { t = \textnormal{con}(t_1, \cdots,t_n) \ t \in \mathcal{T}(S) \setminus ( \mathcal{D}(F) \cup C)  \ \  N[t_1] = s_1 \cdots N[t_n] = s_n }
+   { \textnormal{F} := \textnormal{F}, t \mapsto ( s_1, \cdots, s_n) \downarrow}\\
+   \bold{F-Form2} \frac
+   { l \in \mathcal{T}(S) \setminus \mathcal{D}(F)}
+   { \textnormal{F} := \textnormal{F}, t \mapsto ( l)} \\
+    \bold{N-Form1} \frac
+    { [x] \not\in \mathcal{D}(N) \ \ s \in [x] \setminus ( C \cup \mathcal{V}(S)) \ \ F t= F s \textnormal{for all} \ t \in [x] \setminus ( C \cup \mathcal{V}(S)) }
+    { \textnormal{N}:= \textnormal{N}, [x] \mapsto F s}\\
+    \bold{N-Form2} \frac
+    { [x] \not\in \mathcal{D}(N) \ \ [x] \subseteq  C \cup \mathcal{V}(S)} 
+    { \textnormal{N}:= \textnormal{N}, [x] \mapsto (x)}
+  \end{gather*}
+
+\begin{gather*}\label{eA1}
+ \bold{F-Unify} \frac
+ { F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \textnormal{len} \ u \approx \textnormal{len} \ v }
+ { \textnormal{S}:= \textnormal{S}, u \approx v}\\
+  \bold{F-Split} \frac
+  {\parbox{4.5in}{$  F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \textnormal{len} u \approx \textnormal{len} \ v  $ \\
+       \hspace*{3.0cm}$ u \not\in \mathcal{V}(v_1) \ v \not\in \mathcal{V}(u_1)$}}
+  { \textnormal{S}:= \textnormal{S}, u \approx con(v, z) \parallel  S:= S, v \approx con(u, z) }\\
+  \bold{F-Loop} \frac
+  { F \ s = ( w,x,u_1) \ \ F \ t = (w, u,v_1, x, v_2)  \ s\approx t \in \mathcal{C}(S) \ x \not\in \mathcal{V}((v,v1))}
+  { \parbox{4.5in}{$ \textnormal{S}:= \textnormal{S}, x \approx con(z_2, z),\ con(v,v1) \approx con(z_2,z_1),\ con(u_1) \approx con( z_1, z_2,v_2)$ \\
+   \hspace*{2.0cm}$  \textnormal{R}:=\textnormal{R}, z \ in \ star(set \ con(z_1, z_2)) \ \ \textnormal{C}:=\textnormal{C}, t $}}
+\end{gather*}
+\begin{gather*}\label{eA1}
+
+ \bold{D-Base} \frac
+ { s \in \mathcal{T}(S) \ \ s: \textnormal{Str}  \ \  S \models \textnormal{len} \ s \approx \textnormal{len}_B \textnormal{ for no }  B \in \textnormal{B} }
+ { \textnormal{B}:= \textnormal{B}, \{ [s]\}}\\
+  \bold{Card} \frac
+  {B \in \textnormal{B} \ \ |B| > 1}
+  { \textnormal{A}:= \textnormal{A}, \textnormal{len}_B >  \lfloor  log_{| \mathcal{A}|}  \ ( |B| -1) \rfloor }\\
+  \bold{D-Add} \frac
+  { \parbox{4.2in}{$s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ \textnormal{B} = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B 
+  		$ \\
+  		\hspace*{0.5cm}$  		\textnormal{ for all }  e \in \textnormal{B} \textnormal{ there are } w, u,u_1, v,v_1 \textnormal{ such that} 
+  		 $ \\
+  		 \hspace*{0.0cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \approx \textnormal{len} v, u \not\approx v \in \mathcal{C}(S))$}}
+  { \textnormal{B}:= \textnormal{B}', ( B \cup \{ [s]\})}\\
+  \bold{D-Split} \frac
+  { \parbox{4.5in}{$s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ \textnormal{B} = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B \ e \in B   		 
+  		$ \\
+  		\hspace*{0.5cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \not\approx \textnormal{len}\ v $}}
+  {  \textnormal{S}:=\textnormal{S}, u \approx con(z_1, z_2), len \ z_1 \approx len \ v  \parallel  \textnormal{S}:=\textnormal{S}, v \approx con(z_1, z_2), len \ z_1 \approx len \ u}
+  \end{gather*}

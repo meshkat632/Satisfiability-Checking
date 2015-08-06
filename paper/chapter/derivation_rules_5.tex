@@ -1,0 +1,27 @@
+\begin{figure}
+\begin{minipage}{1.0\textwidth}
+\scriptsize
+\begin{gather*}\label{eA1}
+ \texttt{D-Base} \frac
+ { s \in \mathcal{T}(S) \ \ s: \textnormal{Str}  \ \  S \models \textnormal{len} \ s \approx \textnormal{len}_B \textnormal{ for no }  B \in B }
+ { B:= B, \{ [s]\}}\\
+  \texttt{Card} \frac
+  {B \in B \ \ |B| > 1}
+  { A:= A, \textnormal{len}_B >  \lfloor  log_{| \mathcal{A}|}  \ ( |B| -1) \rfloor }\\
+  \texttt{D-Add} \frac
+  { \parbox{3.3in}{\hspace*{0.5cm} $s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ B = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B 
+  		$ \\
+  		\hspace*{0.8cm}$  		\textnormal{ for all }  e \in B \textnormal{ there are } w, u,u_1, v,v_1 \textnormal{ such that} 
+  		 $ \\
+  		 \hspace*{0.0cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \approx \textnormal{len} v, u \not\approx v \in \mathcal{C}(S))$}}
+  { B:= B', ( B \cup \{ [s]\})}\\
+  \texttt{D-Split} \frac
+  { \parbox{4.0in}{\hspace*{1.5cm} $s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ B = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B \ e \in B   		 
+  		$ \\
+  		\hspace*{2cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \not\approx \textnormal{len}\ v $}}
+  {  S:=S, u \approx con(z_1, z_2), len \ z_1 \approx len \ v  \parallel  S:=S, v \approx con(z_1, z_2), len \ z_1 \approx len \ u}
+  \end{gather*}
+ \end{minipage}
+\caption{The rules for dis-equality reduction\cite{main-paper}.}
+\label{rules_5}
+\end{figure}

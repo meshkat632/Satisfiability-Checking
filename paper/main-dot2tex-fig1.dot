@@ -1,0 +1,26 @@
+digraph G{
+node [shape="box"];
+root [texlbl="$initial \ \mathcal{K}$"];
+node0[label="{0|{<left>|<right>}}"];
+node1[label="{1|{<left>|<right>}}"];
+node2[label="{2|{<left>|<right>}}"];
+node3[label="{3|{<left>|<right>}}"];
+node4[label="{4|{<left>|<right>}}"];
+node5[label="{5|{<left>|<right>}}"];
+node6[label="{6|{<left>|<right>}}"];
+node7[label="{7|{<left>|<right>}}"];
+node8[label="{8|{<left>|<right>}}"];
+node9[label="{9|{<left>|<right>}}"];
+node10[label="{10|{<left>|<right>}}"];
+node11[label="{11|{<left>|<right>}}"];
+node12[label="{12|{<left>|<right>}}"];
+node13[label="{13|{<left>|<right>}}"];
+node14[label="{14|{<left>|<right>}}"];
+node15[label="{15|{<left>|<right>}}"];
+node16[label="{16|{<left>|<right>}}"];
+node17[label="{17|{<left>|<right>}}"];
+node18[label="{18|{<left>|<right>}}"];
+node19[label="{19|{<left>|<right>}}"];
+root:left -> node1;
+root:right -> node2;
+}

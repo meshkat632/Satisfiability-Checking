@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Motivating Example}{}% 2
+\BOOKMARK [1][-]{section.3}{Related work}{}% 3
+\BOOKMARK [1][-]{section.4}{Preliminaries}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{The DPLL\(T\) Procedure}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{The DPLL\(T\) Architecture}{section.4}% 6
+\BOOKMARK [1][-]{section.5}{The Theory solver \040TSL}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{Objective }{section.5}% 8
+\BOOKMARK [2][-]{subsection.5.2}{Basic}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.3}{Core language}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.4}{The foundation}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.5}{Proof Procedure}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.6}{Examples}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.7}{Integration into SMT solver architecture}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.8}{Correctness}{section.5}% 15
+\BOOKMARK [1][-]{section.6}{Evaluation}{}% 16
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 17

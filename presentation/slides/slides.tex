@@ -1,0 +1,61 @@
+%You can switch between the two styles in order to create slides or handouts
+\documentclass[fleqn]{beamer}
+%\documentclass[handout]{beamer}
+
+\usepackage{amsmath,amssymb,amsfonts} % mathematical and other special symbols and fonts
+\usepackage{tikz} % support for drawing graphs and diagrams
+\usetikzlibrary{arrows,decorations.pathmorphing,positioning,fit,trees,shapes}
+\usepackage{xcolor} % color support
+\usepackage{hyperref} % hyperlink support (also internal links)
+\usepackage{listings} % listings and \lstinline support for code typesetting
+\lstset{language=C++}
+%\usepackage[english]{babel} % needed for English texts (translations, e.g. References --> Literatur)
+
+\usepackage[utf8x]{inputenc} % unicode encoding
+\usepackage{graphicx} % support for \includegraphics{}
+
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usetheme{Hybrid}
+\usepackage{lmodern}
+\usetheme{Luebeck}
+\usepackage{lipsum} % <= to insert dummy text
+\usepackage[absolute,overlay]{textpos}
+\usetikzlibrary{arrows,positioning}
+
+
+
+
+\setbeamercolor*{block title example}{fg=blue!50,
+bg= blue!10}
+\setbeamercolor*{block body example}{fg= blue,
+bg= blue!5}
+
+\setbeamertemplate{navigation symbols}{}   
+
+\title{SMT for Strings}
+\subtitle{Seminar: Satisfiability Checking}
+\author[Meshkatul Anwer]{Meshkatul Anwer\\ \small{Supervision: Cornelius Aschermann}}
+\institute[THS]{}
+\date{SS 2015}
+%\titlegraphic{\includegraphics[scale=0.3]{hybrid_logo}}
+\titlegraphic{\includegraphics[scale=0.15]{rwth}}
+
+\begin{document}
+
+\frame{\titlepage}%creates titlepage 
+
+\input{slide_introduction.tex}
+\input{slide_objectives.tex}
+\input{slide_examples_constraints.tex}
+\input{slide_cvc4_introduction.tex}
+\input{slide_steps.tex}
+\input{slide_tree.tex}
+
+\input{slide_correctness.tex}
+\input{slide_evaluation.tex}
+\input{slide_summary.tex}
+
+
+\end{document}
+

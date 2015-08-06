@@ -1,0 +1,29 @@
+\begin{figure}[htb]
+\begin{minipage}{.45\linewidth}
+\[
+ \texttt{con}(\mathbf{s},  \texttt{con}(\mathbf{t}), \mathbf{u}) \rightarrow   \texttt{con}(\mathbf{s}, \mathbf{t}, \mathbf{u})
+\]
+\[
+\texttt{con}(\mathbf{s}, \epsilon, \mathbf{u}) \rightarrow \texttt{con}(\mathbf{s}, \mathbf{u})
+\]
+\[
+ \texttt{con}(s) \rightarrow s
+\]
+\[
+ \texttt{con}() \rightarrow \epsilon
+\]
+\end{minipage}%
+\begin{minipage}{.45\linewidth}
+\[
+ \texttt{con}(\mathbf{s}, c_1 \cdots c_i, c_{i+1} \cdots c_n, \mathbf{u}) \rightarrow \texttt{con}(\mathbf{s}, c_1 \cdots c_n, \mathbf{u})
+\]
+\[
+ \texttt{len}( \texttt{con}(s_1,\cdots,s_n)) \rightarrow \texttt{len}(s_1) + \cdots + \texttt{len}(s_n)
+\]
+\[
+  \texttt{len}(c_1,\cdots,c_n) \rightarrow n
+\]
+\end{minipage}
+\caption{Normalization rewrite rules for terms. The rules are taken from \cite{main-paper}}
+\label{fig:normalization_rewrite_rules}
+\end{figure}

@@ -1,0 +1,12 @@
+digraph G{
+node [shape="box"];
+root [texlbl="$initial\  \mathcal{K}$"];
+a [texlbl="$a$"];
+b [texlbl="$b$"];
+c [texlbl="$c$"];
+d [texlbl="$d$"];
+root:left -> a  [style=bold,label="100 times"];
+root:right -> b;
+a:left -> c;
+a:right -> d;
+}

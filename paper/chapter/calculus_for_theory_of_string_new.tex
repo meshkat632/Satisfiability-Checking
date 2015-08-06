@@ -1,0 +1,29 @@
+\section{The Theory Solver}
+\label{sec:the theory solver}
+In this section we will focus on the SMT solver for strings, which can handle a finite set of (unbounded)string constraints and length constraints.
+
+\subsection{Core Language}
+\label{sec:Core language}
+We use \( \Sigma_{SL}\) to denote the signature over the String sort and the Integer sort. 
+The common symbols (e.g., \( + , - ,  \le \) ) of linear integer arithmetic are interpreted with their usual meaning. The signature defines a finite set of alphabets $\mathcal{A}$ (e.g. 256 ascii characters). A valid string will have characters only from  $\mathcal{A}$. The terms of sort string can be :
+\begin{description}
+	\item[-] constants symbol e.g. $'a', 'ab', 'abc','helloworld'$. That is any word from  $\mathcal{A}^*$. 
+    \item[-] variables symbol e.g. $x, y, z$.
+	\item[-] function symbol \($\underline{con}$ : String \times \cdots \times String \to String\), interpreted as the word concatenation;
+	\item[-] a function symbol \($\underline{len}$ : String  \to Int \), interpreted as the word length function;    
+\end{description}
+We have two types of constraints depending on the signature:
+\begin{description}
+	\item[-] \( string \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) with \(s\) and \(t\) are string terms; e.g.
+		     $x =  \texttt{con}("ab", z) $,
+	         $y =  \texttt{con}("de", z) $,  
+	         $y =  \texttt{con}("abc", l)$,  
+	         $x =  y$.   
+    \item[-] \( length \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) or \( (\neg) s > t \) where \(s\) and \(t\) are arithmetic terms; e.g. $\texttt{len}\ x > 6$.
+\end{description}
+Throughout the section we will use $S$ to denote the set of constraints over strings terms and $A$ to denote set of arithmetic constraints. For example, 
+\[
+S = \{      x =  \texttt{con}("ab", z) ,y =  \texttt{con}("abc", l),x =  y. \},
+A = \{      \texttt{len}\ x > 6. \}
+\]
+where, $x,y,z,l$ are variables of type string. If \(x\) and \(y\) are string variables, \(\texttt{len} \ x\) is both a string and an arithmetic term and  \((\neg)\texttt{len} \ x \approx \texttt{len} \ y\) is both a string and an arithmetic constraint. A \(\mathcal{T}_{SL}\)-constraint is a string, arithmetic constraint. We will use \( \models_{SL}\) to denote entailment in \(\mathcal{T}_{SL}\).

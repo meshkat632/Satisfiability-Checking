@@ -1,0 +1,72 @@
+\begin{thebibliography}{10}
+
+\bibitem{main-paper}
+Tianyi Liang, Andrew Reynolds, Cesare Tinelli, Clark Barrett, and Morgan
+  Deters.
+\newblock A {DPLL(T)} theory solver for a theory of strings and regular
+  expressions.
+\newblock In Armin Biere and Roderick Bloem, editors, {\em Proceedings of the
+  26th International Conference on Computer Aided Verification}, volume 8559 of
+  {\em Lecture Notes in Computer Science}. Springer, 2014.
+
+\bibitem{cvc4_website}
+Cesare Tinelli and Clark Barrett.
+\newblock {\em CVC4 is an efficient open-source automatic theorem prover}.
+\newblock \url{http://cvc4.cs.nyu.edu/web}.
+
+\bibitem{smtlib:website}
+Clark Barrett, Pascal Fontaine, and Cesare Tinelli.
+\newblock {\em SMT-LIB Satisfiability Modulo theories library}.
+\newblock \url{http://smtlib.cs.uiowa.edu/}.
+
+\bibitem{misc_89}
+Minh-Thai Trinh, Duc-Hiep Chu, and Joxan Jaffar.
+\newblock S3: A symbolic string solver for vulnerability detection in web
+  applications.
+
+\bibitem{misc_17}
+Nikolaj Bjørner, Nikolai Tillmann, and Andrei Voronkov.
+\newblock Path feasibility analysis for string-manipulating programs.
+
+\bibitem{hampi}
+Adam Kiezun, Vijay Ganesh, Philip~J. Guo, Pieter Hooimeijer, and Michael~D.
+  Ernst.
+\newblock Hampi: A solver for string constraints.
+\newblock In {\em Proceedings of the Eighteenth International Symposium on
+  Software Testing and Analysis}, ISSTA '09, pages 105--116, New York, NY, USA,
+  2009. ACM.
+
+\bibitem{Kaluza}
+Steve Hanna Stephen~McCamant Prateek~Saxena, Devdatta~Akhawe and Dawn Song.
+\newblock {\em Kaluza, the string solver for the core of Kudzu.}
+\newblock \url{http://webblaze.cs.berkeley.edu/2010/kaluza/}.
+
+\bibitem{dpll}
+Martin Davis and Hilary Putnam.
+\newblock A computing procedure for quantification theory.
+\newblock {\em J. ACM}, 7(3):201--215, July 1960.
+
+\bibitem{main_phd}
+Tianyi Liang.
+\newblock Automated reasoning over string constraints.
+\newblock {\em PhD Dissertation, Department of Computer Science, The University
+  of Iowa, Dec 2014}.
+
+\bibitem{nelson_oppen}
+Greg Nelson and Derek~C. Oppen.
+\newblock Simplification by cooperating decision procedures.
+\newblock {\em ACM Trans. Program. Lang. Syst.}, 1(2):245--257, October 1979.
+
+\bibitem{Z3_str}
+Yunhui Zheng, Xiangyu Zhang, and Vijay Ganesh.
+\newblock Z3-str: A z3-based string solver for web application analysis.
+\newblock In {\em Proceedings of the 2013 9th Joint Meeting on Foundations of
+  Software Engineering}, ESEC/FSE 2013, pages 114--124, New York, NY, USA,
+  2013. ACM.
+
+\bibitem{Kudzu}
+Prateek Saxena, Devdatta Akhawe, Steve Hanna, Feng Mao, Stephen McCamant, and
+  Dawn Song.
+\newblock A symbolic execution framework for javascript.
+
+\end{thebibliography}

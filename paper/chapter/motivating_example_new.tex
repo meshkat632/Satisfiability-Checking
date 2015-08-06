@@ -1,0 +1,40 @@
+\section{Security analysis with theory solvers}
+In the context of security analysis, we want to find out whether security flaws exist in a piece of program. To answer such questions, we express security specification and properties as a set constraints in some background theories. Then this set of constraints is provided to an automatic reasoning tool, which should answer whether the constraints are satisfiable or not. The usual intension is to get the bug revealing inputs reported by the tool. The conventional manual testing or verification processes may not be compete. As they usually model partial scenarios. Whereas the automatic reasoning tool facilitates the search of whole space for possible flaws. Thats why the approach of verification with the help SMT solvers is quite reliable, efficient and complete.
+
+	\begin{description}
+		\item[Example:] Here is an example of such constraint,
+		\begin{equation}
+		\label{mainConstraint}
+		assert (x =  \texttt{con}("ab", z) \wedge (y =  \texttt{con}("de", z) \vee y =  \texttt{con}("abc", l) ) \wedge x =  y \wedge \texttt{len} (x) > 6)
+		\end{equation}
+		where \texttt{con} and \texttt{len} are functions with the usual meaning of string concatenation function and string length function and $x, y, z$ and $l$ are variables of type string. Figure \ref{figure:main-formula-smtlib} shows how this formula can be encoded into the language of theory solver. 
+	\end{description}
+	
+	\begin{figure}[width=4cm]
+		\scriptsize
+		\centering
+		\begin{lstlisting}
+		(set-option:produce-models true)
+		(set-logic QF_S)
+		
+		(declare-fun x () String)
+		(declare-fun y () String)
+		(declare-fun z () String)
+		(declare-fun l () String)
+		
+		(assert (= x (str.++ "ab" z)))
+		(assert (or (= y (str.++ "de" z)) (= y (str.++ "abc" l))) )
+		(assert (=  x  y)) 
+		(assert (> (str.len x) 6)) 
+		
+		(check-sat)
+		(get-value (x y z l) )	
+		\end{lstlisting}
+		\caption{ \scriptsize The formula \ref{mainConstraint} is encoded into smt-lib\cite{smtlib:website} format.}
+		\label{figure:main-formula-smtlib}
+	\end{figure}
+	When this constraint is provided to the theory solver and asked for satisfiability check, it answers with a satisfying solution like,	
+	\[
+	x = "abcAAAA", \ y ="abcAAAA", \ z = "cAAAA" \textnormal{and} \ l = "AAAA" 
+	\]
+	The example shows how complex constraints can be expressed. Especially in the context of security analysis we want to express complex constrains over strings and other data types. The ability to reason over strings and other data types is very important. Many security analysis tools exists in the industry and used for practice. However, they are either able to reason on certain theories or they are very limited in expressiveness. In this paper, we will present a general purpose theory solver for strings and length constraints.

@@ -1,0 +1,6 @@
+\section{Related work}
+\label{sec:Related work}
+
+There has been a lot of research effort on the development of the efficient theory solver for Strings \cite{misc_89}. Theoretically the general world equation problem or the satisfiability problem of theory of strings(with most of common string functions) is undecidable \cite{misc_17}. However, a restricted theories of strings is decidable and practically useful. Different approaches to solve the problem have been proposed and implemented. A class of solvers is based on reducing the string constraints to constraints in other theories e.g. theory of bit-vector. Examples of such solver are Hampi \cite{hampi} and Kaluza \cite{Kaluza}. However, they can only solve problem over fixed length strings. 
+
+In this paper, we will present a SMT solver for strings based an algebraic approach. The whole decision procedure is described as a set of derivation rules and their application strategy. The procedure allows to express the constraints over unbounded strings. A practical theory solver over string based on this approach has been implemented into the CVC4 SMT solver\cite{cvc4_website} core. The detail of the description can be found in the paper \cite{main-paper}. We will try to explain the main ideas presented by the authors.

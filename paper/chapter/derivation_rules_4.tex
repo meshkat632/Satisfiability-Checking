@@ -1,0 +1,20 @@
+\begin{figure}
+\begin{minipage}{1.0\textwidth}
+\scriptsize
+\begin{gather*}\label{eA1}
+ \texttt{F-Unify} \frac
+ { F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \texttt{len} \ u \approx \texttt{len} \ v }
+ { S:= S, u \approx v}\\
+  \texttt{F-Split} \frac
+  {\parbox{3.2in}{$  F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \texttt{len} u \approx \texttt{len} \ v  $ \\
+       \hspace*{2.0cm}$ u \not\in \mathcal{V}(v_1) \ v \not\in \mathcal{V}(u_1)$}}
+  { S:= S, u \approx con(v, z) \parallel  S:= S, v \approx con(u, z) }\\
+  \texttt{F-Loop} \frac
+  { F \ s = ( w,x,u_1) \ \ F \ t = (w, u,v_1, x, v_2)  \ s\approx t \in \mathcal{C}(S) \ x \not\in \mathcal{V}((v,v1))}
+  { \parbox{3.6in}{$ S:= S, x \approx con(z_2, z),\ con(v,v1) \approx con(z_2,z_1),\ con(u_1) \approx con( z_1, z_2,v_2)$ \\
+   \hspace*{2.0cm}$  R:=R, z \ in \ star(set \ con(z_1, z_2)) \ \ C:=C, t $}}
+\end{gather*}
+\end{minipage}
+\caption{The rules for equality reduction \cite{main-paper}. The rule \texttt{F-Loop} is used to detect looping problem.}
+\label{rules_4}
+\end{figure}

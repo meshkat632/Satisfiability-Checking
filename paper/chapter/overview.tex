@@ -1,0 +1,54 @@
+
+\section{Overview}
+\label{sec:overview}
+In this section, we will present an a overview of the approach and basic idea. The theory solver can be described as a set of normalization rewrite rules, derivation rules and a proof procedure. Later in the document we will present few examples of these constructs. 
+
+\subsection{The DPLL(\(T\)) Procedure}
+\label{sec:dpllt procedure}
+In propositional logic, a formula is constructed from a set of Boolean variables using a set of logical connectives, such as \(\wedge, \vee, \neg\). Boolean variables can be assigned a (truth) value that is either \(true\) or \(false\). Given a Boolean formula, the Boolean satisfiability (SAT) problem is to answer whether we can find an assignment for those variables, such that the formula is evaluated to be true under the assignment. There are many decision procedures to solve the classic SAT problem. Among them, the DPLL procedure is the most frequently used in most modern SAT solvers. 
+
+The DPLL procedure takes a set of clauses as input. It returns \(sat\) if a logically consistent assignment can be found; otherwise, it returns \(unsat\). During its computation, the procedure maintains an internal stack of literals (possibly with decision marks) to represent a partial assignment. 
+
+Whenever every clause is evaluated to be true under the current assignment, the procedure stops and returns \(sat\). During a standard processing loop, the DPLL procedure processes the clause set in three steps:
+
+\begin{description}
+	\item[1] It first checks whether the current partial assignment is consistent with the clause set by evaluation. If one of the clauses is evaluated to false and the stack contains at least one decision literal, the procedure pops out all literals in the stack till the nearest decision literal, then flips the sign of that decision literal and turns it into a propagation literal. This step is often referred to \(Backtrack\). If one of the clauses is evaluated to \(false\) and the stack does not contain one decision literal, the procedure stops and returns \(unsat\).
+	
+	\item[2] After the inconsistent check, the procedure tries to push new propagation literals into the stack by logical deduction, e.g., Unit Propagation
+	
+	\item[3] If there are still unassigned variables, the procedure picks one heuristically, guesses its sign, and pushes it into the stack as a decision literal.
+
+\end{description}
+
+The procedure continues until all variables are assigned. In our context, the SAT solver should be able to handle incremental clause assertions. 
+
+\subsection{The Nelson-Oppen Combination}
+\label{sec:The Nelson-Oppen Combination}
+In Boolean formulas, the signature only contains propositional variables and logical connectives; whereas in SMT formulas, the signature is extended to a set of predicate symbols, a set of function symbols and a set of non-Boolean variables. Those extended symbols can be interpreted in some background theories. An SMT formula is satisfiable if there exists a model that satisfies both the logical formula and the background theories.
+
+Reasoning about an SMT formula usually involves several reasoning over several theories. We refer the procedure to reason over a theory \(T\) as a \(T\)-solver. Note that a \(T\)-solver can only handle conjunctions of literals. Given a formula over several theories where each theory has a T-solver, the Nelson-Oppen combination provides a procedure to reason about this constraint.
+
+Here we present a brief describe of the deterministic Nelson-Oppen combination procedure. Let \(S_1\) and \(S_2\) are literals for \(T_1\)-solver and \(T_2\)-solver, respectively. Initially, constraints are partitioned into \(S_1\) and \(S_2\) based on their signature. Whenever \(S_1\) is \(T_1\)-unsatisfiable or \(S_2\) is \(T_2\)-unsatisfiable, the original problem is unsatisfiable. If \(T_1\)-solver derives a new \(T_2\)-equality from \(S_1\) but not in \(S_2\) yet, the new constraint will be put in \(S_2\); similarly, if \(T_2\)-solver derives a new \(T_1\)-equality from \(S_2\) but not in \(S_1\) yet, the new constraint will be put in \(S_1\). If no new equality can be derived from either \(T\)-solver and both \(S_1\) and \(S_2\) are T-satisfiable, the original problem is satisfiable. However, this procedure only works when every theory is convex. For example, integer linear arithmetics is not convex with respect to inequality.
+
+Here we describe the non-deterministic Nelson-Oppen algorithm.  Let \(C\) be a set of constants. An \(arrangement A\) over \(C\) is a set of (dis-)equalities, such that for every pair of elements in \(C\), either an equality or a dis-equality (between two) is in \(A\). Now the algorithm work as follows: initially, constraints are partitioned into \(S_1\) and \(S_2\) based on their signature; for every arrangement \(A\) over the shared constants, if both \(S_1 \cup A\) and \(S_2 \cup A\) is \(T\)-satisfiable, the original problem is satisfiable; otherwise, it is unsatisfiable. Latter we will see how theory solvers communicate (dis-)equalities over shared terms with an example.
+
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{pictures/dpll_arc.png}
+	\end{center}
+	\caption{A general DPLL(\(T\)) Architecture.}
+	\label{fig:dpll_architecture}
+\end{figure}
+
+\subsection{The DPLL(\(T\)) Architecture}
+\label{sec:The DPLL(T) Architecture}
+The DPLL(\(T\)) architecture can be divided into two parts, as shown in Figure \ref{fig:dpll_architecture} : the logic solving part and the theory solving part. In the logic solving part, it usually refers to the DPLL-based SAT solver with  the capability to handle incremental clause assertions. 
+
+The theory solving part usually contains several dedicated solvers for background theories, called \(T\)-solvers. Compared to a generic theory solver, a \(T\)-solver requires the mechanisms for incrementality and backtracking. A \(T\)-solver maintains a set of \(T\)-related literals. This set is a subset of the partial assignment \(M\).
+
+Initially, the SAT solver gets the formula \(F\) from the input. It tries to find a model for the literals. If failed, it returns \(unsat\); otherwise, it distributes each literal in \(M\) to a corresponding \(T\)-solver according to some \(T\)-signature-based heuristics.
+
+When a \(T\)-solver gets a set of literals, it first checks whether these literals are consistent with the theory. If it is \(T\)-consistent, the \(T\)-solver does nothing but reports consistent back to the main engine. If it is \(M\)-inconsistent, it either returns a conflict (in a form of literal conjunction), or propagates a new literal with an explanation (in a form of implication).
+
+If all \(T\)-solvers report \(T\)-consistent, the procedure stops and answers \(sat\) with the model \(M\); otherwise, the SAT solver collects all clauses returned by \(T\)-solvers, and asserts them into the formula \(F\). Then, it tries to build a model from this new formula.

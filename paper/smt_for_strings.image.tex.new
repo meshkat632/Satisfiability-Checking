@@ -1,0 +1,22 @@
+\newif\ifimagen\imagentrue
+\documentclass[14pt]{article}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}\usepackage{amsmath,amssymb,amsfonts}\usepackage{tikz}\usepackage[pdfpagelabels=true,linktocpage]{hyperref}\usepackage{xcolor}\usepackage{listings}\usepackage[english]{babel}\usepackage[utf8]{inputenc}\usepackage{graphicx}\usepackage{float}\usepackage{enumerate}\usepackage{newalg}\usepackage{paralist}\usepackage{url}\usepackage{qtree}\usepackage{tikz}\usepackage{tikz}\usepackage{amsmath}\usepackage{xspace}\newcommand{\A}{\ensuremath{\mathcal{A}}\xspace}
+\newcommand{\B}{\ensuremath{\mathcal{B}}\xspace}
+\newcommand\pa[1]{\ensuremath{\left(#1\right)}}
+\usepackage{dot2texi}\usepackage[listings,theorems]{tcolorbox}\usepackage{amsmath}\usepackage{booktabs}\usepackage{caption}\renewcommand{\UrlFont}{\small\tt}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proof}{Proof}[section]
+\newtheorem{Algorithm}{Algorithm}
+\newcommand{\True}{\ensuremath{\textit{True}~}}
+\newcommand{\False}{\ensuremath{\textit{False}~}}
+\newcommand{\TikZ}{Ti\emph{k}Z}
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\pagestyle{empty}
+\thispagestyle{empty}
+\begin{document}
+\includegraphics[width=0.8\linewidth]{./pictures/dpll_arc.png}
+\clearpage% page: 0
+\includegraphics[width=0.7\linewidth]{./pictures/proof_procedure.png}
+\clearpage% page: 1

@@ -1,0 +1,17 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (72.416bp,11.0bp) node[draw,fill=red!20] {$Graph label $approx$$};
+\end{scope}
+  \node (a) at (27.0bp,40.0bp) [draw,rectangle] {$S:=S, x \approx \epsilon$};
+  \node (b) at (105.0bp,40.0bp) [draw,rectangle] {$A:=A, \texttt{len} \ x >0$};
+  \node (root) at (66.0bp,126.0bp) [draw,rectangle] {$initial \mathcal{K}$};
+  \draw [->,very thick] (root) ..controls (77.178bp,102.27bp) and (80.255bp,95.875bp)  .. (83.0bp,90.0bp) .. controls (86.365bp,82.798bp) and (89.929bp,74.958bp)  .. (b);
+  \draw (117.42bp,83.0bp) node {$Len-Split$};
+  \draw [->,very thick] (root) ..controls (36.154bp,102.68bp) and (31.188bp,96.687bp)  .. (28.169bp,90.0bp) .. controls (25.158bp,83.33bp) and (24.038bp,75.612bp)  .. (a);
+  \draw (56.416bp,83.0bp) node {$Len-Split$};
+%
+\end{tikzpicture}

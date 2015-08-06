@@ -1,0 +1,125 @@
+\section{The Theory solver $ \mathcal{T}_{SL}$}
+\label{sec:the theory solver}
+\subsection{Objective }
+\label{sec:objective}
+We want a solver to handle a finite set of (unbounded)string constraints, length constraints and regular language memberships. Most of the other solvers available in the market try to solve the constraints by converting them into constraints of other available theories. Here we will see, the algebraic approach taken by the authors of cvc4 \cite{cvc4_website} to implement the solver. The solver is described as a rule-based procedure by the original authors in \cite{main-paper}. Before we go into detail, we will present few formal preliminaries and definitions. We will focus our discussion only on solving string constraints and length constraints.
+
+\subsection{Basic}
+\label{sec:basic}
+A $theory$ is a pair $\mathcal{T} = (\Sigma\ \texttt{I})$ where $\Sigma$ is a signature and \texttt{I} is a class of $\Sigma$-interpretations, that is closed under variable reassignment. A $\Sigma$-formula $\varphi$ is $satisfiable$ (resp., $unsatisfiable$) in $\mathcal{T}$ if it is satisfied by some interpretation in \texttt{I}. A set $\Gamma$ of formulas entails in $\mathcal{T}$ a $\Sigma$-formula $\varphi$, written $\Gamma \models_{T} \varphi$ , if every interpretation in \texttt{I} that satisfies all formulas in $\Gamma$ satisfies $\varphi$ as well. The set $\Gamma$ is $satisfiable$ in $T$ if $\Gamma \models_{T} \perp$ where $\perp$ is the universally false atom. We will write $ \Gamma \models \varphi$ to denote that $ \Gamma$ entails $\varphi$ in the class of all $\Sigma$-interpretations. We will use $\approx$ as the (infix) logical symbol for equality, which has type $\sigma \times \sigma$ for all sorts $\sigma$ in $\Sigma$ and is always interpreted as the identity relation. We write $s \not\approx t$ as an abbreviation of $\neg s \approx t$. These notations are defined by the original authors in \cite{main-paper} and we will also use them with the same context in the subsequent sections.
+
+
+\subsection{Core language}
+\label{sec:Theories over Strings}
+We use \textbf{Str}, \textbf{Lan} and \textbf{Int} to denote the String sort, the Language sort and the Integer sort, respectively. We use \( \Sigma_{SRL_p}\) to denote the signature with three sorts \textbf{Str}, \textbf{Lan} and \textbf{Int}. \(\mathcal{T}_{SRL_p}\) refers to the theory of strings with length and positive regular language membership constraints over a signature \( \Sigma_{SRL_p}\). The interpretations of \(\mathcal{T}_{SRL_p}\) differ only on the variables. They all interpret \textbf{Int} as the set of integer numbers  \(\mathbb{Z}\), \textbf{Str} as the set of all strings  \(\mathbb{S}\)  over some fixed finite alphabet  \(\mathcal{A}\) of characters, and \textbf{Lan} as the power set of \(\mathcal{A}^* \).
+The signature includes the following predicate and function symbols:
+The common symbols (e.g., \( + , - ,  \le \) ) of linear integer arithmetic are interpreted as usual. The signature of the sort \textbf{Str} consists the following symbols:
+
+\begin{description}
+	\item[-] a constant symbol, or string constant, for each word of \(\mathcal{A}^* \), interpreted as word;
+	\item[-] a function symbol \($\underline{con}$ : String \times \cdots \times String \to String\), interpreted as the word concatenation;
+	\item[-] a function symbol \($\underline{len}$ : String  \to Int \), interpreted as the word length function;    
+\end{description}
+The signature of the sort  \textbf{Lan} consists the following symbols:
+\begin{description}
+	\item[-] a function symbol \($\underline{set}$ : String  \to Lan \), interpreted as the function mapping each word  \( w \in \mathcal{A}^* \) to the language  \(\{w\}\);
+	\item[-] a function symbol \($\underline{star}$ : Lan \to Lan\), interpreted as the Kleene clousre operator;
+	\item[-] a predicate symbol \($\underline{in}$ : String \to Lan\), interpreted as the membership predicate;	
+	\item[-] a suitable set of additional function symbols: \(union, inter, rempty, allchars, opt range, loop, plus, comp \), interpreted as language concatenation, conjunction and so on;
+\end{description}
+We define three types of terms:
+\begin{description}
+	\item[-] \( string \ term \) : any term of sort \textbf{Str} or of the form \((len \ x )\);
+	\item[-] \( arithmetic \ term \) : any term of sort \textbf{Int} all of whose occurrences of \(len\) are applied to a variable;
+	\item[-] \( regular \ expression \) : any term of sort \textbf{Lan}(possibly with variables).
+\end{description}
+A \( string \ term \) is \( atomic \) if it is a variable or a string constant. We define three types of constraints:
+\begin{description}
+	\item[-] \( string \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) with \(s\) and \(t\) are string terms;
+	\item[-] \( arithmetic \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) or \( (\neg) s > t \) where \(s\) and \(t\) are arithmetic terms;
+	\item[-] \( RL \ constraint \) : is a literal of the form \((s \ \textnormal{in} \ r)\) where \(s\) is a string term and \(r\) is a regular expression.
+\end{description}
+
+\subsection{The foundation}
+We have a finite set of constraints of type string constraints and arithmetic constraints. The string solver takes this set as input and checks for satisfiability. If it finds a satisfying solution, it reports the set of constraints is satisfiable otherwise reports as \texttt{unsat}. From now on we will only consider string constraints and arithmetic constraints. If \(x\) and \(y\) are string variables, \(\texttt{len} \ x\) is both a string and an arithmetic term and  \((\neg)\texttt{len} \ x \approx \texttt{len} \ y\) is both a string and an arithmetic constraint. A \(\mathcal{T}_{SL}\)-constraint is a string, arithmetic constraint. We will use \( \models_{SL}\) to denote entailment in \(\mathcal{T}_{SL}\). Now we will present few definitions, which are defined by author in \cite{main-paper}. These definitions are used for the detail description of the decision procedure.
+
+
+\begin{definition}{congruence closure of \(S\)}
+\end{definition}
+	Let \(S\) be a set of string constraints and let \( \mathcal{T}(S)\) be the set of all terms (and subterms) occurring in \(S\). The \(congruence \ closure\) of \(S\) is the set 
+	\begin{gather*}
+	\mathcal{C}(S) = \{  s\approx t | s, t \in \mathcal{T}(S), S \models s \approx t\} \cup
+			\{ l_1 \not\approx l_2 \ \textnormal{distinct string cons.}\}   \cup \\ \{  s \not\approx t | s, t \in \mathcal{T}(S), s' \not\approx t' \in S, S \models s \approx s' \wedge t \approx t' \ \ \textnormal{for some.} s', t' \}
+	\end{gather*}
+	This equation is taken from \cite{main-paper}.	
+	
+	
+\begin{definition}{equivalence relation}
+\end{definition}
+Iff \( s \approx t \in \mathcal{C}(S)\), where $ s, t \in \mathcal{T}(S) $, the terms \(s, t\) are called $equivalent$. For all \(t \in \mathcal{T}(\textnormal{S})\), its equivalence class in \( \textnormal{E}_S \) is denoted by \( [t]_S \). Where  \( \textnormal{E}_S \) is an $equivalence \ relation$ over \( \mathcal{T}(S) \) induced by the constraints in \(S\).
+
+\begin{definition}{normalized form}
+\end{definition}
+A term is in $normalized \ form$, if it can not be reduced any more respect to the rewrite rules. The rewrite rules are shown in Figure \ref{fig:normalization_rewrite_rules}. For example, $(x, \epsilon, c_1, c_2c_3, y)$ becomes $(x, c_1c_2c_3, y)$ after the reduction.
+\input{chapter/normalization_rules.tex}
+
+\begin{definition}{configurations}
+\end{definition}
+ A \(configuration\) is defined in \cite{main-paper} as a tuple of the form \( \langle \textnormal{S, A, R, F, N, C, B} \rangle \) where	
+	\begin{description}	
+		\item[-] S, A, R are respectively a set of string, arithmetic, and RL constraints;
+		\item[-] F is a set of pairs $ s \mapsto \mathbf{a} $ where $ s \in \mathcal{T}(\textnormal{S})$ and $\mathbf{a}$ is a tuple of atomic string terms;
+		\item[-] N is a set of pairs $ e \mapsto \mathbf{a} $ where $e$  is an equivalence class of \( \textnormal{E}_S \) and $\mathbf{a}$ is a tuple of atomic string terms;
+		\item[-] C is a set if terms of sort \textbf{Str};
+		\item[-] B is a set of $buckets$ where each bucket is a set of equivalence classes of \( \textnormal{E}_S \). For each bucket $ B \in \textnormal{B}, len_B$ denotes a unique term $\texttt{len}\ x$, where $[x] \in B.$
+	\end{description}
+	Initially the sets S, A, R store the input problem and grow with the introduction of new constraints derived by derivation rules. C stores terms whose flat form should not be computed, to prevent loops in the computation of their equivalence class normal form. B eventually becomes a partition of \( \textnormal{E}_S \). The procedure assigns string constants of different lengths to variables in different buckets, and different string constants of the $same$ length to different variables in the same bucket.
+	
+	A configuration is called $saturated$ by author in \cite{main-paper}, if
+    \begin{itemize}
+	   	\item \texttt{N} is a total map over \( \textnormal{E}_S \).
+	   	\item \texttt{B} is a partition of \( \textnormal{E}_S \), and
+	   	\item It is not possible to apply any derivation rule on the terms other than \texttt{Reset}.
+	\end{itemize}
+	The decision procedure concludes $\texttt{sat}$ when it reaches such a configuration in the derivation tree.
+	
+\begin{definition}{derivation rule}
+\end{definition}
+A $derivation rule$ applies to a $configuration\ K$, if all of the rule's premises hold. A rule's conclusion describes how each component of the $configuration\ K$ is changed, if at all. An application of rule may produce two or more beaches in the derivation tree. These rules have the symbol $\parallel$ in their conclusion. The author in \cite{main-paper} called them as are non-deterministic branching rules.
+However, in the implementation the branching is applied from left to write. According to the author the derivation rules are only applicable on any configuration when it maintain the following conditions as $Invariant$:
+\begin{description}			
+\item[-] All terms are reduced with respect to the rewrite system in Figure \ref{fig:normalization_rewrite_rules}.
+\item[-] \texttt{S} is a partial map from  $\mathcal{T}(\texttt{S})$ to normalized tuples of atomic terms.
+\item[-] \texttt{S} is a partial map from \( \textnormal{E}_S \) to normalized tuples of atomic terms.
+\item[-] For all terms $s$ where $[s] \to (a_1,\cdots,a_n) \in N$ or $s \to (a–1,\cdots,a_n) \in F$, we have $S \models_{SLR_p} \  s \approx \texttt{con}(a_1,\cdots,a_n)$ and $S \models a_i \not\approx \epsilon for i = 1,\cdots,n $.
+\item[-] For all $B_1, B_2 \in \texttt{B}, [s] \in B_1$ and $[t] \in B_2, S \models \texttt{len} \ s \approx \texttt{len} \ t$ iff $B_1 = B_2$.
+\item[-] \texttt{C} contains only reduced terms of the form $\texttt{con}(\mathbf{a})$.       	       
+\end{description}
+ 
+    In the paper \cite{main-paper} the authors have presented a list of the derivations rules. These rules are listed in Figures from \ref{rules_1} to \ref{rules_5}. Due to space restriction, we will only describe few of them bellow. 
+    
+    The first four rules $\texttt{A-Prop},\texttt{S-Prop},\texttt{Len}$ and $\texttt{Len-Splite}$  in Figure \ref{rules_1} describe the interaction between arithmetic solver and string solver. This is achieved via the propagation of entailed constraints on the shared terms. The rule $\texttt{A-Conflict}$ derives \texttt{unsat} if the arithmetic part of the constraints unsatisfiable. The basic rules for string constraints e.g. $\texttt{S-Cycle},\texttt{S-Split},\texttt{S-Conflict}$ are shown in Figure \ref{rules_2}. The functionality of \texttt{S-Split}, \texttt{L-Split} is straightforward. \texttt{S-Conflict} derives  \texttt{unsat} if $\mathcal{C}(S)$ contains both equality and dis-equality between the same pair of strings. \texttt{S- Split}  tries to guess whether two strings are equal or not, while \texttt{L-Split} tries to guess whether two string variables have the same length.  Application of split rules causes the branching of the derivation tree. \texttt{Reset} is meant to be applied when new constraints are introduced to the set $S$. The major part of the work is done by the $normalization\ derivation\ rules$ and $equality\ reduction\ rules$. These rules shown in Figures \ref{rules_3} and \ref{rules_4}. Detail about the individual rule can be found in \cite{main_phd} and in \cite{main-paper}.
+   
+   
+   
+   \input{chapter/derivation_rules_1.tex}
+   \input{chapter/derivation_rules_2.tex}
+   \input{chapter/derivation_rules_3.tex}
+   \input{chapter/derivation_rules_4.tex}
+   \input{chapter/derivation_rules_5.tex}  
+      
+   
+    
+    The $disequality\ reduction\ rules$ in Figure \ref{rules_5} are used to partition the equivalence classes of terms of sort \textbf{Str} into buckets. This classification is done on the expected length of the value. The main target is that, on saturation, each bucket B can be assigned a unique length $n$, and each equivalence class in $B$ can evaluate to a unique string constant of that length. These assignments willl be used as model.  Finally, the rule \texttt{Card} makes sure that $n$ is big enough to have enough string constants of length $n$. The brief description of the rules presented here is taken from \cite{main_phd}. 
+ 
+
+\begin{definition}{derivation tree}
+\end{definition}
+A $derivation \ tree$ is a tree where each node is a $configuration$ and each non-root node is obtained by applying one of the derivation rules to its parent node. The root of a derivation tree an $initial \ configuration$. A branch of a derivation tree is $closed$ if it ends with \texttt{unsat}. A derivation tree is $closed$ if all of its branches are closed.	
+
+
+In this section we have presented all the definitions we need to finally describe the procedure. All these definitions are taken from the paper \cite{main-paper}.   
+
+
+
+

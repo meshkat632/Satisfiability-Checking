@@ -1,0 +1,49 @@
+\frametitle{Constraints:encoding into smtlib}
+
+\begin{textblock*}{40mm}(85mm,9mm)
+\tiny
+\begin{exampleblock}{}
+  constraints:
+   \begin{itemize}
+   \setlength\itemsep{0.1em}
+       \item $s_1: \texttt{x} =  \texttt{con}(\texttt{"ab"}, \texttt{z}) $
+        \item $s_2: \texttt{y} =  \texttt{con}(\texttt{"de"}, \texttt{z}) $
+        \item $s_3: \texttt{y} =  \texttt{con}(\texttt{"abc"}, \texttt{l})$
+        \item $s_4: \texttt{x} =  \texttt{y}$
+        \item $s_5: \texttt{len} (\texttt{x}) > 6$
+   \end{itemize}
+   formula:
+\begin{itemize}
+      \item $ assert (s_1 \wedge (s_2 \vee s_3 ) \wedge s_4 \wedge s_5)$
+   \end{itemize}
+\end{exampleblock}
+\end{textblock*}
+
+
+\begin{figure}[width=5cm]
+\scriptsize
+\begin{lstlisting}
+(set-option:produce-models true)
+(set-logic QF_S)
+
+(declare-fun x () String)
+(declare-fun y () String)
+(declare-fun z () String)
+(declare-fun l () String)
+
+(assert (= x (str.++ "ab" z)))
+(assert (or (= y (str.++ "de" z)) (= y (str.++ "abc" l))) )
+(assert (=  x  y))
+(assert (> (str.len x) 6))
+
+(check-sat)
+(get-value (x y z l) )
+\end{lstlisting}
+
+\caption{ \scriptsize the formula encoded in smt-lib 2 format}
+\end{figure}\pause
+
+\begin{figure}[h]
+\includegraphics[width=12cm]{cvc_output.png}
+\caption{ \scriptsize the output from cvc4}
+\end{figure}

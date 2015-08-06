@@ -1,0 +1,3 @@
+\section{Correctness}
+\label{sec:Correctness}
+The procedure is $refutation\ sound$, that is when the procedure answers \texttt{unsat}, it can be trusted even for strings of unbounded length. And the procedure is $solution\ sound$, that is when the procedure answers $sat$, it can be trusted. In the original paper \cite{main-paper}, the authors have claimed that they have a version of the procedure which is also $solution\ complete$, that is when the procedure answers $sat$, it will eventually get a model by finite model finding. However, the procedure  is $refutation\ complete$, that is for an unsatisfiable set of constraints the procedure may not terminate. More detail on the correctness properties and the proofs of these theorem can be found in \cite{main_phd}.

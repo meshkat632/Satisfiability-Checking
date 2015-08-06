@@ -1,0 +1,15 @@
+\begin{figure}
+\scriptsize
+\begin{minipage}{1.0\textwidth}
+\begin{gather*}\label{eA1}
+ \texttt{A-Prop} \frac{ S \models  \texttt{len} \ x \approx \texttt{len} \ y}{ A := A, \texttt{len} \ x \approx \texttt{len} \ y}\\
+  \texttt{S-Prop} \frac{ A \models_{LIA}  \texttt{len} \ x \approx \texttt{len} \ y}{ S := S, \texttt{len} \ x \approx \texttt{len} \ y}\\
+ \texttt{Len} \frac{ x \approx t \in \mathcal{C}(S) \ x \in \mathcal{V}(S)}{ A := A, \texttt{len} \ x \approx (\texttt{len} \ t) \downarrow}\\
+ \texttt{Len-Split} \frac{ x \in \mathcal{V}(S \cup A) \ x: Str}{ S := S, x \approx \epsilon \parallel  A:= A, \texttt{len} \ x > 0}\\
+ \texttt{A-Conflict} \frac{ A \models_{LIA} \perp }{ \texttt{unsat}}\\
+ \texttt{R-Star} \frac{ s \ in \ star( set \ t) \in R \ s  \not\approx \epsilon \in \mathcal{C}(S)}{ S:= S, s \approx \textnormal{con}(t,z) \textnormal{R}:= \textnormal{R}, z \ in \ star \ (set \ t)}
+\end{gather*}
+\end{minipage}
+\caption{ The rules for theory combination\cite{main-paper}. \texttt{R-Start} is handle cases with regular expression. }
+\label{rules_1}
+\end{figure}

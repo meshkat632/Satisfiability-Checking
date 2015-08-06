@@ -1,0 +1,59 @@
+\@@addtocsec{htoc}{sec1}{0}{\@print{1}\quad{}Introduction{}}
+\newlabel{sec:introduction}{{1}{X}}
+\@deflabeltype{sec:introduction}{section}
+\citation{main-paper}
+\citation{cvc4_website}
+\@@addtocsec{htoc}{sec2}{0}{\@print{2}\quad{}Security analysis with theory solvers{}}
+\newlabel{mainConstraint}{{1}{X}}
+\@deflabeltype{<span style="font-style:italic">mainConstraint</span>}{<span style="font-style:italic">section</span>}
+\citation{smtlib:website}
+\newlabel{figure:main-formula-smtlib}{{1}{X}}
+<span style="font-size:small">\@deflabeltype{figure:main-formula-smtlib}{figure}
+</span>\@@addtocsec{htoc}{sec3}{0}{\@print{3}\quad{}Related work{}}
+\newlabel{sec:Related work}{{3}{X}}
+\@deflabeltype{sec:Related work}{section}
+\citation{misc_89}
+\citation{misc_17}
+\citation{hampi}
+\citation{Kaluza}
+\citation{cvc4_website}
+\citation{main-paper}
+\@@addtocsec{htoc}{sec4}{0}{\@print{4}\quad{}Background{}}
+\newlabel{sec:Background}{{4}{X}}
+\@deflabeltype{sec:Background}{section}
+\@@addtocsec{htoc}{sec5}{1}{\@print{4.1}\quad{}The SAT problem{}}
+\citation{dpll}
+\@@addtocsec{htoc}{sec6}{1}{\@print{4.2}\quad{}The SMT Problem{}}
+\newlabel{sec:dpllt procedure}{{4.2}{X}}
+\@deflabeltype{sec:dpllt procedure}{subsection}
+\citation{main_phd}
+\newlabel{fig:dpll_architecture}{{2}{X}}
+\@deflabeltype{fig:dpll_architecture}{figure}
+\@@addtocsec{htoc}{sec7}{0}{\@print{5}\quad{}The Theory Solver{}}
+\newlabel{sec:the theory solver}{{5}{X}}
+\@deflabeltype{sec:the theory solver}{section}
+\@@addtocsec{htoc}{sec8}{1}{\@print{5.1}\quad{}Core Language{}}
+\newlabel{sec:Core language}{{5.1}{X}}
+\@deflabeltype{sec:Core language}{subsection}
+\@@addtocsec{htoc}{sec9}{1}{\@print{5.2}\quad{}The decision procedure{}}
+\citation{main_phd}
+\newlabel{fig:proof_procedure}{{3}{X}}
+\@deflabeltype{fig:proof_procedure}{figure}
+\citation{nelson_oppen}
+\citation{main_phd}
+\citation{main-paper}
+\newlabel{eA1}{{1}{X}}
+<span style="font-size:small">\@deflabeltype{</span><span style="font-size:small"><span style="font-style:italic">eA</span></span><span style="font-size:small">1}{</span><span style="font-size:small"><span style="font-style:italic">subsection</span></span><span style="font-size:small">}
+</span>\citation{main-paper}
+\newlabel{rules_1}{{4}{X}}
+<span style="font-size:small">\@deflabeltype{rules_1}{figure}
+</span><span style="font-size:small">\@deflabeltype{</span><span style="font-size:small"><span style="font-style:italic">eA</span></span><span style="font-size:small">1}{</span><span style="font-size:small"><span style="font-style:italic">subsection</span></span><span style="font-size:small">}
+</span>\citation{main-paper}
+\newlabel{rules_2}{{5}{X}}
+\@deflabeltype{rules_2}{figure}
+<span style="font-size:small">\@deflabeltype{</span><span style="font-size:small"><span style="font-style:italic">eA</span></span><span style="font-size:small">1}{</span><span style="font-size:small"><span style="font-style:italic">subsection</span></span><span style="font-size:small">}
+</span>\citation{main-paper}
+\newlabel{rules_3}{{6}{X}}
+\@deflabeltype{rules_3}{figure}
+<span style="font-size:small">\@deflabeltype{</span><span style="font-size:small"><span style="font-style:italic">eA</span></span><span style="font-size:small">1}{</span><span style="font-size:small"><span style="font-style:italic">subsection</span></span><span style="font-size:small">}
+</span>

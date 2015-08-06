@@ -1,0 +1,25 @@
+\begin{figure}
+\begin{minipage}{1.0\textwidth}
+\scriptsize
+\begin{gather*}\label{eA1}
+ \bold{S-Cycle} \frac
+ { t = \textnormal{con}(t_1, \cdots, t_i, \cdots, t_n) \ t \in \mathcal{T}(S) \setminus C \ t_k \approx \epsilon \in \mathcal{C}(S) \ \textnormal{for all} \ k \in \{1,\cdots,n\} \setminus \{ i \} }
+ { \textnormal{S} := \textnormal{S}, t \approx t_i \ C:=C (C, t) \setminus \{t_i\}   }\\
+  \bold{Reset} \frac{ }
+  { \textnormal{F} := \phi, \textnormal{N} := \phi, \textnormal{B} := \phi}\\
+   \bold{S-Split} \frac
+   { x, y \in \mathcal{V}(S) \ \ x \approx y, x \not\approx y \in \mathcal{C}(S) }
+   { \textnormal{S} := \textnormal{S}, x \approx y \parallel S:= S, x \not\approx y}\\
+      \bold{S-Conflict} \frac
+      { x \approx t \in \mathcal{C}(S) \ \ s \not\approx t \in \mathcal{C}(S)}
+      { \textnormal{unsat}}\\
+      \bold{L-Split} \frac
+       { x, y \in \mathcal{V}(S) \ \ x,y: \textnormal{Str}  \ \  S \not\models \textnormal{len} \ x \not\approx \textnormal{len} \ y}
+       { \textnormal{S}:= \textnormal{S}, \textnormal{len} \ x \approx \textnormal{len} \ y \parallel \textnormal{S}:=\textnormal{S}, \textnormal{len} \ x \not\approx \textnormal{len} \ y}
+\end{gather*}
+\null
+\par\xdef\tpd{\the\prevdepth}
+\end{minipage}
+\caption{Basic string derivation rules. The rules are taken from \cite{main-paper} and they are in their original form.}
+\label{rules_2}
+\end{figure}

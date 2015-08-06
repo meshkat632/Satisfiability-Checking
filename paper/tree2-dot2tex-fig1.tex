@@ -1,0 +1,17 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,]
+%%
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (118.0bp,11.0bp) node[draw,fill=red!20] {$Graph label$};
+\end{scope}
+  \node (a) at (18.0bp,43.0bp) [draw,ellipse,blue] {$aa$};
+  \node (c) at (214.0bp,43.0bp) [draw,ellipse,red,rotate=90] {$ccc$};
+  \node (b) at (118.0bp,43.0bp) [draw,ellipse,font=\Huge] {$b$};
+  \draw [->] (a) ..controls (50.875bp,43.0bp) and (72.568bp,43.0bp)  .. (b);
+  \draw (68.0bp,50.0bp) node[draw=red,cross out] {$label$};
+  \draw [->] (b) ..controls (148.99bp,43.0bp) and (166.7bp,43.0bp)  .. (c);
+  \draw (164.0bp,50.0bp) node[below=0.5cm,rotate=20,fill=blue!20] {$test$};
+%
+\end{tikzpicture}

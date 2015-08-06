@@ -1,0 +1,51 @@
+
+\section{Overview of the main approach}
+\label{sec:overview}
+In this section, we will describe the work-flow the decision procedure along with example.
+Later in the section, we will present the formal description. To make the explanation easy to follow, we will skip few details.  
+First we define the core language for Theory of Strings. Where terms are:
+\begin{description}
+	\item[-] constants from a fixed finite alphabet \( \Sigma^*\)   \( (a, ab,cbc,\cdots )\), or	
+	\item[-] free constants or \("variables"\) \( (x, y,z\cdots )\),or	
+	\item[-] string concatenation function \( \_.\_ : \ String \times String \to String  \), or
+    \item[-] length function:  \( len(\_): \ String \to Int  \)
+\end{description}
+The solver should be able to handle arbitrary boolean combination of constraints e .g.
+	\[       len(x) > len(y)  \wedge ( x.z = y.ab \vee x = y). \]
+	where, \( x, y, z\) are variables of type string and  '\(ab\)' is a string constants. As the first step, this set of clauses are given to an SAT solver. If successful  the SAT solver will return a satisfying assignment, which is a conjunction of constraints over the literals from the input. For example in our case this could be as bellow, 
+	\[     \{ len(x) > len(y) ,  x.z = y.ab \vee x = y \}\xrightarrow{SAT solver} \{ \mathbf{ len(x) > len(y)} ,  \mathbf{x.z = y.ab} \vee x = y \} \].
+	We can say the selection of the constraints are marked by SAT solver. Now we have set of selected constraints ,that is \( \{ len(x) > len(y) ,  x.z = y.ab \}\). The next task is to purify and distribute these constraints to corresponding theory solvers. In this case, the first constraints \(len(x) > len(y)\) is sent to a dedicated theory solver for linear ineger arithmetic. And the other constraints \( x.z = y.ab \)  is sent to a dedicated theory solver for strings. These dedicated theory solvers are also called cooperating theory solvers. As they communicate with each other about the equalities and dis-equalities over shared terms. This technique is known as Nelson-Oppen procedure. In this case the theory solver for linear integer arithmetic may communicate the theory of strings that \(len(x) \neq len(y)\). After getting this feedback, theory of string solver added the new constraint to its sets of constraints. The set of constraints for the theory of strings looks like 
+	\( \{ len(x) \neq len(y) ,  x.z = y.ab \}\).
+	
+	Remainder of this section, we will separate the set of constraints into different components. There sets are, 
+	\begin{inparaenum}
+		\item set \textbf{A} for arithmetic constraints, 
+		\item set \textbf{S}  is a set of (dis)equalities over String terms and length terms.
+   \end{inparaenum}
+   In our example , they are as
+   \begin{description}
+   	\item \(  \textbf{A} : \{ len(x) > len(y) \}  \), 
+   	\item \(  \textbf{S} : \{  x.z = y.ab, len(x) \neq len(y) \}  \), 
+   	\end{description} 
+   	
+   	Now to check the satisfiability of these constraints, we describe a procedure consisting of four steps: 
+   	   	
+   	\begin{enumerate}
+   		\item Check length constraints \( \textbf{A}\). 
+   		\item Normalize equalities in \( \textbf{S}\).   		
+   		\item Normalize dis-equalities in \( \textbf{S}\). 
+   		\item Check cardinality of \( \Sigma\). 
+   	\end{enumerate}
+   	Now we will elaborate each steps with examples. 
+   	\begin{itemize}
+   		\item Check length constraints \( \textbf{A}\): Let assume, we have the sets as \(  \textbf{A} : \{ len(x) > len(y) \}  \) and \(  \textbf{S} : \{  x.z = y.ab, len(x) \neq len(y) \}  \). We add equalities to \textbf{A} regarding the length of (non-variable) terms from \textbf{S}. From the constraint \(   x.z = y.ab\) of  \textbf{S} we get a new constraint \( len(x) + len(z) =  len(y) + 2 \) and add it into set \textbf{A}. After the first step \(  \textbf{A} : \{ len(x) > len(y), len(x) + len(z) =  len(y) + 2 \}  \). After doing this we check if  \textbf{A} is satisfiable. If so we continue.   
+   		
+   		 
+   		\item Normalize equalities in \( \textbf{S}\): Basic idea is to add additional equalities to \textbf{S} until pairs of equivalent terms have the same normal form. Let assume, we have the set as  \(  \textbf{S} : \{  len(x) = len(y), len(z) \neq len(w), x.z = y.w.ab \}  \). From the constraints, we can conclude that \(  x = y\). As \(x\) and  \(y\) are the prefix of same string and their length is same. So after this step we add new constraint \(x = y\) to  \textbf{S}. Now because of  \(len(z) \neq len(w) \) we can conclude a new constraint \( z = w.z'\), where \(z'\) is a fresh variable. Finally the solver propagate that \( z' = ab\). We add these additional equalities to \textbf{S} and if there is not conflict we conclude that the terms are in normal form.
+   		
+   		\item Normalize dis-equalities in \( \textbf{S}\): Basic idea is quite analogous to normalization of equalities step. We keep adding additional dis-equalities to \textbf{S}, as long as no conflict is produced. 
+   		
+   		\item Check cardinality of \( \Sigma\): This step is performed as a last step of our procedure. We check if all the constraints in the updated \textbf{S} may be unsatisfiable since \( \Sigma\) is finite. For example, if \( \Sigma\) is a finite alphabet of 256 characters,and \textbf{S} entails that 257 distinct strings of length 1 exist, then \textbf{S} is unsatisfiable. 
+   		      		  
+   	\end{itemize}  
+   	

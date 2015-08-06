@@ -1,0 +1,52 @@
+\section{Motivating Example}
+We are interested in SMT solver which helps to check the satisfiability of constraints over rich set of data types. Here we will see few examples such constraints on strings. Example 3 shows how we can express regular expression membership constraint.
+
+\begin{description}
+\item[Example  1: ] Find an assignment for \(x\), where \(x."ab"="ba".x \wedge  len(x) =7\).
+\item[Example  2: ] Find a model for \(x\), \(y\) and \(z\), where \(x."ab".y=y."ba".z \wedge z=x.y \wedge x."a" \neq "a".x\).
+\item[Example  3: ] Find a model for \(x\) and \(y\), where both \(x\) and \(y\) are in the \(RegEx (a*b)*\) and they are different but have the same length.
+\end{description}
+Where \(x\), \(y\) and \(z\) are variables of type string, \(len\) is a function which returns the length of the string variable.  Figure \ref{fig:smt_example_1_2} and \ref{fig:smt_example_3} show the encoding of Example 1 , Example 2 and Example 3 in smt-lib \cite{smtlib:website} format. The examples and code snippets  are taken from \cite{cvc4:wiki}.
+
+\begin{figure}[ht]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\begin{verbatim}
+		...		
+		(assert (= (str.++ x "ab") (str.++ "ba" x)))
+		(assert (= (str.len x) 7))
+		
+		...
+		\end{verbatim}
+	\end{minipage}
+	\quad
+	\begin{minipage}[t]{0.45\linewidth}
+		\begin{verbatim}
+		...
+		(assert (= (str.++ x "ab" y) (str.++ y "ba" z)))
+		(assert (= z (str.++ x y)))
+		(assert (not (= (str.++ x "a") (str.++ "a" x))))
+		...
+		\end{verbatim}
+	\end{minipage}
+	\caption{Encoding of Example 1 and Example 2 in smt-lib \cite{smtlib:website} format.}
+	\label{fig:smt_example_1_2}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+    \begin{minipage}[t]{0.65\linewidth}
+		\begin{verbatim}
+		...
+		(assert(str.in.re x(re.* (re.++ (re.* (str.to.re "a") ) (str.to.re "b") ))))
+		(assert (str.in.re y(re.* (re.++ (re.* (str.to.re "a") ) (str.to.re "b") ))))
+		
+		(assert (not (= x y)))
+		(assert (= (str.len x) (str.len y)))
+		...
+		\end{verbatim}
+	\end{minipage}
+	\caption{Encoding of Example 3 in smt-lib \cite{smtlib:website} format.}
+	\label{fig:smt_example_3}
+\end{figure}
+
+In the context of security analysis, modern SMT solver is used as the core constraint solver. The idea is to reduce security problems to constraint satisfaction problems in some formal logic. If the constraints are unsatisfiable, the source code is free of any exploit; otherwise, there is an assignment (of variables in the constraints) that satisfies these constraints and defines a possible attack. Traditionally analysis tools use their own built-in constraint solvers. However, it is possible to encode a security analysis problem into a Satisfiability Modulo Theories (SMT) problem. Then the preexisting standard SMT solver, which combines a SAT solver with multiple specialized theory solvers can be used. As string is the dominant data type in modern web-applications, constraints over strings along with other data types need to be checked. In this paper we will have a look into a string solver.

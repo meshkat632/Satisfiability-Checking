@@ -1,0 +1,129 @@
+
+%\input{chapter/example_1_tree.tex}
+
+
+
+
+\begin{figure}[ht]
+	\centering
+ 	\begin{minipage}[t]{0.45\linewidth}
+ 		\begin{tikzpicture}[->,>=stealth',
+ 		shorten >=1pt,auto,node distance=0.5cm,thick,
+ 		main node/.style={rectangle,draw}, text node/.style={rectangle}]
+ 		
+ 		
+ 		\node  (s1){$s_1: x =  \texttt{con}("ab", z) $};
+ 		\node  (s2) [below of=s1] {$s_2: y =  \texttt{con}("de", z) $};
+ 		\node  (s3) [below of=s2] {$s_3: y =  \texttt{con}("abc", l)$};
+ 		\node  (s4) [below of=s3] {$s_4: x =  y$};
+ 		\node  (s5) [below of=s4] { $s_5: \texttt{len}\  x > 6$};
+ 		\node  (s6) [below of=s5] {$assert( s_1 \wedge (s_2 \vee s_3 ) \wedge s_4 \wedge s_5)$};
+ 		
+ 		
+ 		\end{tikzpicture}
+ 	\end{minipage}
+	\quad
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\begin{tikzpicture}[->,>=stealth',
+		shorten >=1pt,auto,node distance=2.3cm,thick,
+		main node/.style={rectangle,draw}, text node/.style={rectangle}]
+		
+		\node (root) {$ s_1 \wedge (s_2 \vee s_3 ) \wedge s_4 \wedge s_5$};
+		\node[main node] (sat-solver) [below of=root] {SAT-Solver};
+		\node[main node] (t-solver-1) [below left of=sat-solver] {$\mathcal{T}$-Solver};
+		\node[main node] (t-solver-2) [below right of=sat-solver] {$\mathcal{T}$-Solver};	
+		\node[text node] (sat) [below of=t-solver-2] {$ \texttt{sat}$};
+		
+		
+		\path[every node/.style={font=\sffamily\small}]
+		(root) edge node [left] {} (sat-solver)	
+		
+		(sat-solver) edge node [right, near end] { $s_1 ,s_2 ,  s_4, s_5$} (t-solver-1)
+		(sat-solver) edge node [right] {$s_1 ,s_3 ,  s_4, s_5$} (t-solver-2)	
+		(t-solver-1) edge [bend left] node [left] {unsat} (sat-solver)	
+		(t-solver-2) edge  node [right] {} (sat);
+		\end{tikzpicture}
+	\end{minipage}
+	\caption{On the left the set of constraints and the boolean formula. And on the right side the interaction with SAT-Solver core and theory solver is shown.}
+	\label{smt_example_1_2}
+\end{figure}
+
+	\begin{figure}
+		\centering	
+		\begin{tikzpicture}[->,>=stealth',
+		shorten >=1pt,auto,node distance=2cm,thin,
+		main node/.style={rectangle,draw}, text node/.style={rectangle}]
+		
+		
+		\node [left] at (-10mm,0) {$ \{s_1, s_2, s_4,  s_5\}$};
+		\node[main node] (a) {$initial\ \mathcal{K}$};
+		\node[main node] (b) [below left of=a] {$S:=S, x\approx \epsilon$};
+		\node[main node] (c) [below right of=a] {$A:=A, len\ x > 0$};
+		
+		\node[main node] (d) [below left of=b] {$unsat$};
+		\node[main node] (e) [below left of=c] {$S:=S, y\approx \epsilon$};
+		\node[main node] (f) [below right of=c] {$A:=A, len\ y > 0$};
+		
+		\node[main node] (g) [below left of=e] {$unsat$};
+		\node[main node] (h) [below left of=f] {$S:=S, z\approx \epsilon$};
+		\node[main node] (i) [below right of=f] {$A:=A, len\ z > 0$};
+		
+		\node[main node] (j) [below left of=h] {$unsat$};
+		\node[main node] (k) [below of=i] {$\{ x,y,con(ab,z),con(de,z)\}$};
+		
+		\node [draw] (l) at (43mm,-75mm)  {$unsat$};
+		
+		
+		\path[every node/.style={font=\sffamily\small}]
+		(a) edge node [left] {\texttt{Len-Split}} (b)
+		(a) edge node [right] {\texttt{Len-Split}} (c)
+		(b) edge node [left] {\texttt{S-Conflict}} (d)
+		(c) edge node [left] {\texttt{Len-Split}} (e)
+		(e) edge node [left] {\texttt{S-Conflict}} (g)
+		(c) edge node [right] {\texttt{Len-Split}} (f)
+		(f) edge node [left] {\texttt{Len-Split}} (h)
+		(f) edge node [right] {\texttt{Len-Split}} (i)
+		(h) edge node [left] {\texttt{S-Conflict}} (j)
+		(i) edge node [left] {normalization} (k)
+		(k) edge node [left] {\texttt{S-Conflict}} (l);
+		
+		\end{tikzpicture}			
+		\caption{The branch of derivation tree, which ends up in \texttt{unsat}.}
+		\label{leftDerivationTree}
+	\end{figure}
+	\begin{figure} 	
+		\centering
+		\begin{tikzpicture}[->,>=stealth',
+		shorten >=1pt,auto,node distance=1.3cm,thin,
+		main node/.style={rectangle,draw}, text node/.style={rectangle}]
+		
+		
+		\node [left] at (-10mm,0) {$ \{s_1, s_3, s_4,  s_5\}$};
+		\node[main node] (a) {$initial\ \mathcal{K}$};
+		\node (dummy) [below of=a] {};
+		%\node[main node] (b) [left of=dummy] {$unsat$};		
+		\node [draw] (b) at (-25mm,-12mm)  {$unsat$};
+		\node[main node] (c) [right of=dummy] {$\{ x,y,con(ab,z),con(abc,l)\}$};
+		\node[main node] (d) [below of=c] {$S:=S, z \approx con(c, l)$};
+		\node[main node] (e) [below of=d] {$A:=A, len\ z \approx 1 + len l$}; 
+		\node[main node] (f) [below of=e] {$A:=A, len\ l > 3$};
+		\node[main node] (g) [below of=f] {$saturation$};
+		
+		\node at (7mm,-72mm) {$ l \approx "AAAA" \mapsto z \approx "cAAAA" \mapsto x, y\approx "abcAAAA"$};
+		
+		\path[every node/.style={font=\sffamily\small}]
+		(a) edge [dashed] node [left] {\texttt{Len-Split}} (b)
+		(a) edge [dashed] node [right] {\texttt{Len-Split}} (c)
+		(c) edge  node [right] {\texttt{F-Unify}} (d)
+		(d) edge [dashed] node [right] {\texttt{Len}} (e)
+		(e) edge  node [right] {normalization} (f)
+		(f) edge  node [right] {normalization} (g);
+		
+		
+		\end{tikzpicture}			
+		\caption{The branch of derivation tree, which ends up in saturation.}
+		\label{rightDerivationTree}
+	\end{figure}		
+	
+	

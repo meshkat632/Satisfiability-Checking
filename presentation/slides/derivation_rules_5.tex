@@ -1,0 +1,30 @@
+\begin{figure}
+\begin{minipage}{1.0\textwidth}
+\scriptsize
+\begin{gather*}\label{eA1}
+ \bold{D-Base} \frac
+ { s \in \mathcal{T}(S) \ \ s: \textnormal{Str}  \ \  S \models \textnormal{len} \ s \approx \textnormal{len}_B \textnormal{ for no }  B \in \textnormal{B} }
+ { \textnormal{B}:= \textnormal{B}, \{ [s]\}}\\
+  \bold{Card} \frac
+  {B \in \textnormal{B} \ \ |B| > 1}
+  { \textnormal{A}:= \textnormal{A}, \textnormal{len}_B >  \lfloor  log_{| \mathcal{A}|}  \ ( |B| -1) \rfloor }\\
+  \bold{D-Add} \frac
+  { \parbox{4.2in}{$s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ \textnormal{B} = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B 
+  		$ \\
+  		\hspace*{0.5cm}$  		\textnormal{ for all }  e \in \textnormal{B} \textnormal{ there are } w, u,u_1, v,v_1 \textnormal{ such that} 
+  		 $ \\
+  		 \hspace*{0.0cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \approx \textnormal{len} v, u \not\approx v \in \mathcal{C}(S))$}}
+  { \textnormal{B}:= \textnormal{B}', ( B \cup \{ [s]\})}\\
+  \bold{D-Split} \frac
+  { \parbox{4.5in}{$s \in \mathcal{T}(S) \ \ s: \textnormal{Str} \ \ \textnormal{B} = \textnormal{B'}, B \   S \models \textnormal{len} \ s \approx \textnormal{len}_B  [s]  \not\in B \ e \in B   		 
+  		$ \\
+  		\hspace*{0.5cm}$ (N [s] = (w, u,u_1), N e = (w, v,v1), \ S \models \textnormal{len} \ u \not\approx \textnormal{len}\ v $}}
+  {  \textnormal{S}:=\textnormal{S}, u \approx con(z_1, z_2), len \ z_1 \approx len \ v  \parallel  \textnormal{S}:=\textnormal{S}, v \approx con(z_1, z_2), len \ z_1 \approx len \ u}
+  \end{gather*}
+\null
+\par\xdef\tpd{\the\prevdepth}
+\end{minipage}
+\caption{Disequality reduction rules. Letters \( z_1, z_2\) denote fresh Skolem variables. For each bucket
+\(  B \in \textnormal{B}, len_B \)  denotes a unique term \( \textnormal{len}\ x \) where \( [x] \in B \). \( |-| \) denotes the cardinality operator.The rules are taken from \cite{main-paper} and they are in their original form.}
+\label{rules_5}
+\end{figure}

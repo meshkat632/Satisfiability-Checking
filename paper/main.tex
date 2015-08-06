@@ -1,0 +1,132 @@
+\documentclass[14pt]{article}
+%\documentclass[14pt]{llncs}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+%\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{amsmath,amssymb,amsfonts} % mathematical and other 
+% special symbols and fonts
+\usepackage{tikz} % support for drawing graphs and diagrams
+\usetikzlibrary{arrows,decorations.pathmorphing,positioning,fit}
+\usetikzlibrary{trees,shapes}
+\usepackage[pdfpagelabels=true,linktocpage]{hyperref} % hyperlink 
+% support (also internal links)
+\usepackage{xcolor} % color support
+\usepackage{listings} % listings and \lstinline support for code 
+% typesetting
+\lstset{language=C++}
+\usepackage[english]{babel} % needed for English texts (translations, 
+% e.g. References --> Literatur)
+% \usepackage[ngerman]{babel} % needed for German texts (translations, 
+%e.g. References --> Literatur)
+\usepackage[utf8]{inputenc} % unicode encoding
+\usepackage{graphicx} % support for \includegraphics{}
+\usepackage{float}
+\usepackage{enumerate} % support of different styles of enumerations
+%\usepackage[section]{algorithm}
+\usepackage{newalg}
+\usepackage{paralist}
+
+\usepackage{url}
+\usepackage{qtree}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{amsmath}
+\usepackage{xspace}
+\newcommand{\A}{\ensuremath{\mathcal{A}}\xspace}
+\newcommand{\B}{\ensuremath{\mathcal{B}}\xspace}
+\newcommand\pa[1]{\ensuremath{\left(#1\right)}}
+
+
+\usepackage{dot2texi} 
+
+
+
+\usepackage[listings,theorems]{tcolorbox}
+\tcbset{before={\par\medskip\pagebreak[0]\noindent},after={\par\medskip}}%
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup[table]{position=top}
+
+
+% By default the URLs are put in typewriter type in the body and the
+% bibliography of the document when using the \url command.  If you are
+% using many long URLs you may want to uncommennt the next line so they
+% are typeset a little smaller.
+\renewcommand{\UrlFont}{\small\tt}
+
+
+\newtheorem{definition}{Definition}[section] % defines the definition environment
+\newtheorem{theorem}{Theorem}[section] % defines the theorem environment
+\newtheorem{proof}{Proof}[section] % defines the proof environment
+\newtheorem{Algorithm}{Algorithm} % defines the algorithm environment
+
+%\floatstyle{boxed}		% Puts a figure
+%\restylefloat{figure}	% into a box.
+\floatstyle{ruled}					% Puts an algorithm
+\newfloat{Algorithm}{thp}{lop}		% between a head and
+\floatname{Algorithm}{Algorithm}	% a foot line
+\restylefloat{table}	% Puts a table between a head and a foot line
+
+
+
+%Define often used expressions:
+\newcommand{\True}{\ensuremath{\textit{True}~}}
+\newcommand{\False}{\ensuremath{\textit{False}~}}
+\newcommand{\TikZ}{Ti\emph{k}Z}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+%\renewcommand{\baselinestretch}{1.3}
+
+% A nice opportunity to comment the text is given by the following:
+%\usepackage{todonotes}
+%\definecolor{lightgreen}{rgb}{0.8,1.0,0.8}
+%\definecolor{lightblue}{rgb}{0.8,0.85,1}
+%\newcommand{\Author}[1]{\todo[inline,color=lightgreen]{A: #1}}
+%\newcommand{\Supervisor}[1]{\todo[inline,color=lightblue]{S: #1}}
+
+
+\title{SMT for Strings \\ {\large Seminar:
+		Satisfiability Checking} \\ {\large SS 2015}}
+\author{Meshkatul Anwer \\ Supervision: Cornelius Aschermann}
+%\institute{ RWTH Aachen}
+
+
+\begin{document}
+	
+	\maketitle
+	
+    \input{chapter/abstract.tex}
+	\input{chapter/introduction.tex}
+	\input{chapter/motivating_example.tex}
+	
+	\input{chapter/related_work.tex}    
+	\input{chapter/preliminaries_.tex}	
+
+	%\input{chapter/theories_over_string.tex}
+    \input{chapter/calculus_for_theory_of_string.tex}
+    \input{chapter/proof_procedure.tex}
+    \input{chapter/examples.tex}
+    \input{chapter/interaction_dpll_t.tex}
+    \input{chapter/correctness.tex}
+    
+    
+    
+    %\input{chapter/example_1_tree.tex}
+    %\input{chapter/example_1_tree_final.tex}
+    \input{chapter/evaluation.tex}
+    \input{chapter/conclusion.tex}
+    
+	
+	\newpage
+	%Sets the bibliography style to UNSRT and imports the 
+	%bibliography file "samples.bib".
+	\bibliographystyle{unsrt}
+	\bibliography{sample}
+	
+\end{document}
+

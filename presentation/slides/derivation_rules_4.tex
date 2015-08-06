@@ -1,0 +1,22 @@
+\begin{figure}
+\begin{minipage}{1.0\textwidth}
+\scriptsize
+\begin{gather*}\label{eA1}
+ \bold{F-Unify} \frac
+ { F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \textnormal{len} \ u \approx \textnormal{len} \ v }
+ { \textnormal{S}:= \textnormal{S}, u \approx v}\\
+  \bold{F-Split} \frac
+  {\parbox{4.5in}{$  F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1)  s\approx t \in \mathcal{C}(S) \ S \models \textnormal{len} u \approx \textnormal{len} \ v  $ \\
+       \hspace*{3.0cm}$ u \not\in \mathcal{V}(v_1) \ v \not\in \mathcal{V}(u_1)$}}
+  { \textnormal{S}:= \textnormal{S}, u \approx con(v, z) \parallel  S:= S, v \approx con(u, z) }\\
+  \bold{F-Loop} \frac
+  { F \ s = ( w,x,u_1) \ \ F \ t = (w, u,v_1, x, v_2)  \ s\approx t \in \mathcal{C}(S) \ x \not\in \mathcal{V}((v,v1))}
+  { \parbox{4.5in}{$ \textnormal{S}:= \textnormal{S}, x \approx con(z_2, z),\ con(v,v1) \approx con(z_2,z_1),\ con(u_1) \approx con( z_1, z_2,v_2)$ \\
+   \hspace*{2.0cm}$  \textnormal{R}:=\textnormal{R}, z \ in \ star(set \ con(z_1, z_2)) \ \ \textnormal{C}:=\textnormal{C}, t $}}
+\end{gather*}
+\null
+\par\xdef\tpd{\the\prevdepth}
+\end{minipage}
+\caption{Equality reduction rules. The letters \(z, z_1, z_2\) denote fresh Skolem variables.The rules are taken from \cite{main-paper} and they are in their original form.}
+\label{rules_4}
+\end{figure}

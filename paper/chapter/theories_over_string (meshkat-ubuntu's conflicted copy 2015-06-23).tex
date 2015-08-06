@@ -1,0 +1,38 @@
+\section{Theories over Strings}
+\label{sec:Theories over Strings}
+hi 
+We use \textbf{String}, \textbf{Lan} and \textbf{Int} to denote the String sort, the Language sort and the Integer sort, respectively. We use \( \Sigma_{ SRL}\) to denote the signature over string constraints. Here the the subscript \(S\) is for symbols over the (pure) String sort, \(R\) for symbols over the Language sort, and \(L\) for the Length symbol. 
+
+We use \( \mathcal{T}_X\)  to denote the existential theory over the signature \( \Sigma_X\), where \(X\) is any combination of \(S\), \(R\) and \(L\). The interpretations of \( \mathcal{T}_X\) differ only on the variables. They all interpret \textbf{Int} as the set of integer numbers  \(\mathbb{Z}\), \textbf{String} as the set of all strings  \(\mathbb{S}\)  over some fixed finite alphabet  \(\mathcal{A}\) of characters, and \textbf{Lan} as the power set of \(\mathcal{A}^* \). \( \mathcal{T}_S\) refers to the existential theory over word equations, 
+\( \mathcal{T}_{SL}\)  refers to the existential theory over word equations and additional length constraints,\( \mathcal{T}_{RL}\) refers to the existential theory over membership constraints and additional length constraints, and \(\mathcal{T}_{SRL}\) refers to the full existential theory over strings. From now on we will focus on solving quantifier-free constraints.
+
+The common symbols (e.g., \( + , - ,  \le \) ) of linear integer arithmetic are interpreted as usual. The signature of the sort \textbf{String} consists the following symbols:
+
+\begin{description}
+	\item[-] a constant symbol, or string literal, \\interpreted as the corresponding string in  \(\mathbb{S}\) ;
+	\item[-] a varidic function symbol \($\underline{con}$ : String \times \cdots \times String \to String\), \\interpreted as the string concatenation function \(. : \mathbb S \times \cdots \times \mathbb S \to \mathbb S\);
+	\item[-] a function symbol \($\underline{len}$ : String  \to Int \),\\ interpreted as the string length function \(  |\_| : \mathbb S  \to \mathbb N\);
+\end{description}
+
+The signature of the sort  \textbf{Lan} consists the following symbols:
+
+\begin{description}
+	\item[-] a function symbol \($\underline{set}$ : String  \to Lan \), \\interpreted as the function mapping a string \( s \in \mathbb S \) to the language \{ \(s\) \};
+	\item[-] a constant symbol \( $\underline{rempty}$: Lan\),\\ interpreted as the empty set \(\emptyset\) ;
+	\item[-] a constant symbol \( $\underline{allchars}$: Lan\),\\ interpreted as the set \(\Sigma\) ;
+	\item[-] a varidic function symbol \($\underline{rcon}$ : Lan \times \cdots \times Lan \to Lan\),\\ interpreted as the language concatenation function \(. : \mathbb L \times \cdots \times \mathbb L \to \mathbb L\);	
+	\item[-] a varidic function symbol \($\underline{inter}$ : Lan \times \cdots \times Lan \to Lan\), \\interpreted as the language intersection function \( \cap : \mathbb L \times \cdots \times \mathbb L \to \mathbb L\);
+	\item[-] a varidic function symbol \($\underline{union}$ : Lan \times \cdots \times Lan \to Lan\), \\interpreted as the language union function \( \cup : \mathbb L \times \cdots \times \mathbb L \to \mathbb L\);
+	\item[-] a function symbol \($\underline{star}$ : Lan \to Lan\), \\interpreted as the Kleene clousre operator \( \_ : \mathbb L \to \mathbb L\);
+	\item[-] a predicate symbol \($\underline{in}$ : String \to Lan\),\\ interpreted as the membership predicate  \( \in: \mathbb L  \times \mathbb L \to \mathbb B\);
+	\item[-] a function symbol \($\underline{opt}$ : Lan \to Lan\), \\interpreted as the language option operator \( \_^? : \mathbb L \to \mathbb L\);
+	\item[-] a function symbol \($\underline{range}$ : String \times String \to Lan\), \\interpreted as the language range operator \(  [\_,\_] : \mathbb S \times \mathbb S \to \mathbb L\);
+	
+	\item[-] a function symbol \($\underline{loop}$ : Lan \times Int \times Int \to Lan\),\\ interpreted as the language loop operator \(  \_^{-,-} : \mathbb L \times \mathbb N \times \mathbb N \to \mathbb L\);
+	
+	\item[-] a function symbol \($\underline{plus}$ : Lan \to Lan\),\\ interpreted as the language plus operator \( \_^+ : \mathbb L \to \mathbb L\);
+	\item[-] a function symbol \($\underline{comp}$ : Lan \to Lan\),\\ interpreted as the language complement operator \( \_^+ : \mathbb L \to \mathbb L\);
+\end{description}
+
+
+$\underline{x}$

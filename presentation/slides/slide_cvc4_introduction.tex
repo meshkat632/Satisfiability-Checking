@@ -1,0 +1,34 @@
+\frame{
+  \frametitle{Introduction to CVC4}  
+  \begin{itemize}
+  \item CVC4 
+	\begin{itemize}
+		\item CVC4 is an automatic theorem prover for Satisfiability Modulo Theories.
+		\item along with other theories it also supports 'Theory of Strings'. 
+		\item the theory solver for strings is implemented as natively.
+	\end{itemize}  
+  \item Features:
+  	\begin{itemize}  		
+        \item allows constraints with unbounded Strings, 
+  		\item does not translate the problem into other theories (e.g. bitvectors)
+		\item the procedure is algebraic in approach. 
+  	\end{itemize}
+  \end{itemize}
+
+}
+
+\frame{
+  \frametitle{Overview of the procedure}  
+  \begin{itemize}
+    \item The procedure is defined as a set of derivation rules.
+    \item The repeated application of rules produces a derivation tree, where each node in the derivation tree is called a \underline{$configuration$}.
+    \item while the rule application, the tree splits with new configuration, where
+    \begin{description}
+        \item[-] no further rule application is possible
+        \item[-] or the configuration is \texttt{unsat}, then backtrack and take another branch if exists        
+      \end{description}
+    \item If the procedure ends up with a \underline{$closed$} tree, then it concludes as \texttt{unsat}.
+    \item or If the procedure ends up with a \underline{$saturated$} configuration, then it concludes as \texttt{sat}.    
+  \end{itemize}
+}
+

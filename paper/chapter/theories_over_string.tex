@@ -1,0 +1,32 @@
+\section{A Theory of Strings and Regular Language Membership}
+\label{sec:Theories over Strings}
+We use \textbf{Str}, \textbf{Lan} and \textbf{Int} to denote the String sort, the Language sort and the Integer sort, respectively. We use \( \Sigma_{SRL_p}\) to denote the signature with three sorts \textbf{Str}, \textbf{Lan} and \textbf{Int}. \(\mathcal{T}_{SRL_p}\) refers to the theory of strings with length and positive regular language membership constraints over a signature \( \Sigma_{SRL_p}\). The interpretations of \(\mathcal{T}_{SRL_p}\) differ only on the variables. They all interpret \textbf{Int} as the set of integer numbers  \(\mathbb{Z}\), \textbf{Str} as the set of all strings  \(\mathbb{S}\)  over some fixed finite alphabet  \(\mathcal{A}\) of characters, and \textbf{Lan} as the power set of \(\mathcal{A}^* \).
+The signature includes the following predicate and function symbols:
+The common symbols (e.g., \( + , - ,  \le \) ) of linear integer arithmetic are interpreted as usual. The signature of the sort \textbf{Str} consists the following symbols:
+
+\begin{description}
+	\item[-] a constant symbol, or string constant, for each word of \(\mathcal{A}^* \), interpreted as word;
+	\item[-] a function symbol \($\underline{con}$ : String \times \cdots \times String \to String\), interpreted as the word concatenation;
+	\item[-] a function symbol \($\underline{len}$ : String  \to Int \), interpreted as the word length function;    
+\end{description}
+The signature of the sort  \textbf{Lan} consists the following symbols:
+\begin{description}
+	\item[-] a function symbol \($\underline{set}$ : String  \to Lan \), interpreted as the function mapping each word  \( w \in \mathcal{A}^* \) to the language  \(\{w\}\);
+	\item[-] a function symbol \($\underline{star}$ : Lan \to Lan\), interpreted as the Kleene clousre operator;
+	\item[-] a predicate symbol \($\underline{in}$ : String \to Lan\), interpreted as the membership predicate;	
+	\item[-] a suitable set of additional function symbols: \(union, inter, rempty, allchars, opt range, loop, plus, comp \), interpreted as language concatenation, conjunction and so on;
+\end{description}
+We define three types of terms:
+\begin{description}
+	\item[-] \( string \ term \) : any term of sort \textbf{Str} or of the form \((len \ x )\);
+	\item[-] \( arithmetic \ term \) : any term of sort \textbf{Int} all of whose occurrences of \(len\) are applied to a variable;
+    \item[-] \( regular \ expression \) : any term of sort \textbf{Lan}(possibly with variables).
+\end{description}
+A \( string \ term \) is \( atomic \) if it is a variable or a string constant. We define three types of constraints:
+\begin{description}
+	\item[-] \( string \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) with \(s\) and \(t\) are string terms;
+	\item[-] \( arithmetic \ constraint \) : is a (dis)equality  \( (\neg) s \approx t \) or \( (\neg) s > t \) where \(s\) and \(t\) are arithmetic terms;
+	\item[-] \( RL \ constraint \) : is a literal of the form \((s \textnormal{in} r)\) where \(s\) is a string term and \(r\) is a regular expression.
+\end{description}
+
+Note that if \(x\) and \(y\) are string variables, \(\textnormal{len} \ x\) is both a string and an arithmetic term and  \((\neg)\textnormal{len} \ x \approx \textnormal{len} \ y\) is both a string and an arithmetic constraint. A \(\mathcal{T}_{SRL_p}\)-constraint is a string, arithmetic or RL constraint. We will use \( \models_{SRL_{p}}\) to denote entailment in \(\mathcal{T}_{SRL_p}\).

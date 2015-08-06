@@ -1,0 +1,264 @@
+\frame{
+  \frametitle{Procedure}  
+  The main procedure is based on the repeated application of the rules according to the following steps,
+  \begin{enumerate}
+    \item $Check\ conflicts$ 
+    \item $Propagate$
+    \item $Split\ by Length$
+    \item $Normalize$
+    \item $Partition$
+    \item $Check\ cardinality$
+  \end{enumerate}
+  
+  Note:
+    \begin{itemize}
+      \item $S:$ set of string constraints.
+      \item $A:$ set of arithmetic constraints.
+    \end{itemize}
+  
+}
+
+\frame{
+  \frametitle{Procedure: Step 0:$Start\ of\ the\ procedure$}
+
+\begin{textblock*}{41mm}(100mm,-5mm)
+\tiny
+\begin{exampleblock}{}
+  	\begin{enumerate}
+  	\setlength\itemsep{0.1em}
+  	        \item $Check\ conflicts$ 
+  	        \item $Propagate$
+  	        \item $Split\ by\ Length$
+  	        \item $Normalize$
+  	        \item $Partition$
+  	        \item $Check\ cardinality$  	    
+  	\end{enumerate}
+\end{exampleblock}
+\end{textblock*}
+
+  \begin{itemize}
+    \item This is the start of the procedure. \input{normalization_rules.tex}
+    \item All the terms must be in normalized form, according to the above reduction rules.
+  \end{itemize}
+        \begin{description}
+          \item e.g. $\texttt{con}("ab", \texttt{con}("c", l)) \rightarrow \texttt{con}("abc",l) $
+          \item e.g. $\texttt{len}("abc") \rightarrow 3$
+          \item e.g. $\texttt{len}(\texttt{con}("abc", "def"))\rightarrow 6$
+        \end{description}
+}
+
+\frame{
+  \frametitle{Procedure: Step 1:$Check\ conflicts$}
+
+\begin{textblock*}{41mm}(100mm,-5mm)
+\tiny
+\begin{exampleblock}{}
+  	\begin{enumerate}
+  	\setlength\itemsep{0.1em}
+  	        \item \underline{$Check\ conflicts$} 
+  	        \item $Propagate$
+  	        \item $Split\ by\ Length$
+  	        \item $Normalize$
+  	        \item $Partition$
+  	        \item $Check\ cardinality$  	    
+  	\end{enumerate}
+\end{exampleblock}
+\end{textblock*}
+
+  \begin{itemize}
+    \item Check is there any contradiction exists in the current \\constraints
+    \item Rules used: \texttt{S-Conflict} , \texttt{A-Conflict}.
+    \input{A-Conflict_S-Conflict.tex}
+    \item Examples: 
+      \begin{itemize}
+          \item e.g. $S:\{ \cdots, x \approx \epsilon,x\not\approx \epsilon, \cdots\} \rightarrow{\texttt{unsat}}$      
+          \item e.g. $S:\{ \cdots, x \approx y,x\not\approx y, \cdots\} \rightarrow{\texttt{unsat}}$      
+          \item e.g. $A:\{ \texttt{len}(x) \approx \texttt{len}(y), \texttt{len}(x) \not\approx \texttt{len}(y) \}\rightarrow{\texttt{unsat}}$      
+       \end{itemize} 
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Procedure: Step 2:$Propagate$}
+
+\begin{textblock*}{41mm}(100mm,-5mm)
+\tiny
+\begin{exampleblock}{}
+  	\begin{enumerate}
+  	\setlength\itemsep{0.1em}
+  	        \item $Check\ conflicts$ 
+  	        \item \underline{$Propagate$}
+  	        \item $Split\ by\ Length$
+  	        \item $Normalize$
+  	        \item $Partition$
+  	        \item $Check\ cardinality$  	    
+  	\end{enumerate}
+\end{exampleblock}
+\end{textblock*}
+
+  \begin{itemize}
+    \item Introduce new constraints induced by constraints of other theories \\(e.g. $\mathcal{T}_{LIA}$ and $\mathcal{T}_{SL} $).  
+    \item Rules used : \texttt{S-Prop}, \texttt{A-Prop}.
+    \begin{figure}
+    \begin{align*}
+ \texttt{A-Prop} &\frac{ S \models  \texttt{len} \ x \approx \texttt{len} \ y}{ A := A, \texttt{len} \ x \approx \texttt{len} \ y}\\
+  \texttt{S-Prop} &\frac{ A \models_{LIA}  \texttt{len} \ x \approx \texttt{len} \ y}{ S := S, \texttt{len} \ x \approx \texttt{len} \ y}
+      \end{align*}
+    \end{figure}    
+    
+    \item Examples: 
+      \begin{itemize}
+          \item e.g. $S \models (\texttt{len} \ x \approx \texttt{len} \ y) \rightarrow A:=A,{\texttt{len} \ x \approx \texttt{len} \ y}$      
+          \item e.g. $S \models (\texttt{len} \ x \approx \texttt{len} \ "abc") \rightarrow A:=A,{\texttt{len} \ x = 3 }$      
+       \end{itemize} 
+  \end{itemize}
+}
+
+\frame{
+	\frametitle{Procedure: Step 3:$Split\ by\ Length$}
+	
+	\begin{textblock*}{41mm}(100mm,-5mm)
+	\tiny
+	\begin{exampleblock}{}
+	  	\begin{enumerate}
+	  	\setlength\itemsep{0.1em}
+	  	        \item $Check\ conflicts$ 
+	  	        \item $Propagate$
+	  	        \item \underline{$Split\ by\ Length$}
+	  	        \item $Normalize$
+	  	        \item $Partition$
+	  	        \item $Check\ cardinality$  	    
+	  	\end{enumerate}
+	\end{exampleblock}
+	\end{textblock*}
+	
+	\begin{itemize}
+     	\item Introduce new constraint into the set of arithmetic \\constraints for equalities in string constraints.
+     	\item Introduce branching for free variables in string constraints.
+		\item Rules used: \texttt{Len} and \texttt{Len-Split}.
+		
+		\begin{figure}
+			\begin{align*} 
+			\texttt{Len} &\frac{ x \approx t \in \mathcal{C}(S) \ x \in \mathcal{V}(S)}{ A := A, \texttt{len} \ x \approx (\texttt{len} \ t) \downarrow}\\
+			%\texttt{Len-Split} &\frac{ x \in \mathcal{V}(S \cup A) \ x: Str}{ S := S, x \approx \epsilon \parallel  A:= A, \texttt{len} \ x > 0}
+			\end{align*}
+		\end{figure}    
+		
+		\item Examples: 
+		\begin{itemize}
+			\item e.g. $S \models (x \approx y) \rightarrow A:=A,{\texttt{len} \ x \approx \texttt{len} \ y}$      
+			\item e.g. $S \models (x \approx "abc") \rightarrow A:=A,{\texttt{len} \ x = 3 }$      
+		\end{itemize} 
+	\end{itemize}
+}
+
+
+\frame{
+	\frametitle{Procedure: Step 4:$Normalize$}
+	
+	\begin{textblock*}{41mm}(100mm,-5mm)
+	\tiny
+	\begin{exampleblock}{}
+	  	\begin{enumerate}
+	  	\setlength\itemsep{0.1em}
+	  	        \item $Check\ conflicts$ 
+	  	        \item $Propagate$
+	  	        \item $Split\ by\ Length$
+	  	        \item \underline{$Normalize$}
+	  	        \item $Partition$
+	  	        \item $Check\ cardinality$  	    
+	  	\end{enumerate}
+	\end{exampleblock}
+	\end{textblock*}
+	
+	\begin{itemize}
+		\item Compute the normalized form for each term. 
+		\item If there is term not in normalized, apply splitting and then finally unify. 
+		\item Rules used: \texttt{S-Cycle}, \texttt{L-Split}, \texttt{F-Unify}		
+		\begin{figure}
+			\scriptsize
+			\begin{align*}
+			\texttt{F-Unify} &\frac
+			{ F \ s = ( w,u,u_1) \ \ F \ t = (w, u,v_1) \  s\approx t \in \mathcal{C}(S) \ S \models \textnormal{len} \ u \approx \textnormal{len} \ v }
+			{ S:= S, u \approx v}
+			\end{align*}
+		\end{figure}    
+		
+		\item Examples: 
+		\begin{itemize}
+			\item e.g. $\texttt{con}(x, m) \approx \texttt{con}(y, n) , \texttt{len}(x) \approx \texttt{len}(y)  \rightarrow S:=S,{ x \approx  y}$
+		\end{itemize} 
+	\end{itemize}
+}
+
+
+\frame{
+	\frametitle{Procedure: Step 5:$Partition$}
+		\begin{textblock*}{41mm}(100mm,-5mm)
+		\tiny
+		\begin{exampleblock}{}
+		  	\begin{enumerate}
+		  	\setlength\itemsep{0.1em}
+		  	        \item $Check\ conflicts$ 
+		  	        \item $Propagate$
+		  	        \item $Split\ by\ Length$
+		  	        \item $Normalize$
+		  	        \item \underline{$Partition$}
+		  	        \item $Check\ cardinality$  	    
+		  	\end{enumerate}
+		\end{exampleblock}
+		\end{textblock*}
+	
+	
+	\begin{itemize}
+		\item Each equivalence class should be in their corresponding group (bucket).
+		\item If the partition is not compete, apply splitting on the free variables.
+		\item Rules used: \texttt{D-Base}, \texttt{D-Add}, \texttt{S-Split} and \texttt{L-Split}. 		
+		\begin{figure}
+			\scriptsize
+			\begin{align*}
+			            \texttt{S-Split} &\frac
+						{ x, y \in \mathcal{V}(S) \ \ x \approx y, x \not\approx y \in \mathcal{C}(S) }
+						{ S := S, x \approx y \parallel S:= S, x \not\approx y}\\
+						\texttt{L-Split} &\frac
+						{ x, y \in \mathcal{V}(S) \ \ x,y: \textnormal{Str}  \ \  S \not\models \texttt{len} \ x \not\approx \textnormal{len} \ y}
+						{ S:= S, \textnormal{len} \ x \approx \texttt{len} \ y \parallel S:=S, \textnormal{len} \ x \not\approx \texttt{len} \ y}
+			\end{align*}
+		\end{figure}   		
+	\end{itemize}
+}
+\frame{
+	\frametitle{Procedure: Step 6:$Check\ cardinality$}
+	
+		\begin{textblock*}{41mm}(100mm,-5mm)
+		\tiny
+		\begin{exampleblock}{}
+		  	\begin{enumerate}
+		  	\setlength\itemsep{0.1em}
+		  	        \item $Check\ conflicts$ 
+		  	        \item $Propagate$
+		  	        \item $Split\ by\ Length$
+		  	        \item $Normalize$
+		  	        \item $Partition$
+		  	        \item \underline{$Check\ cardinality$}  	    
+		  	\end{enumerate}
+		\end{exampleblock}
+		\end{textblock*}
+	
+	\begin{itemize}
+		\item For each bucket $B$ introduce new an arithmetic constraint, as the alphabet $\mathcal{A}$ is finite.
+		\item Performed as a last step of the procedure.		
+		\item For example, 
+		 \begin{itemize}
+		 	\item If
+		    \begin{itemize}
+				\item we have 256 characters, and
+				\item $S$ entails that 257 distinct strings of length 1 exist 
+		    \end{itemize}
+		    \item Then \begin{itemize}
+				\item $S$ is unsatisfiable
+			\end{itemize}
+		\end{itemize}	  
+
+	\end{itemize}
+}
